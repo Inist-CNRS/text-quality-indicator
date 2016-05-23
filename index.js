@@ -4,7 +4,8 @@ const natural = require('natural'),
   bluebird = require('bluebird'),
   fs = bluebird.promisifyAll(require('fs')),
   tokenizer = new natural.WordTokenizer(),
-  dict = fs.readFileSync(__dirname + '/assets/dict/en/general.txt', 'utf8');
+  dict = fs.readFileSync(__dirname + '/assets/dict/en/general.txt', 'utf8'),
+  kuler = require('kuler');
 
 fs.readFileAsync(__dirname + '/test/test.txt', 'utf8').then((text) => {
   // console.log(tokenizer.tokenize(text));
@@ -15,19 +16,19 @@ fs.readFileAsync(__dirname + '/test/test.txt', 'utf8').then((text) => {
     error: 0
   };
   tokens.forEach((word) => {
-    const regex = new RegExp('\\n'+word+'\\n');
+    const regex = new RegExp('\\b'+word+'\\b');
 
     if (dict.match(regex)) {
-      console.log(word, ': OK');
+      console.log(word, kuler('OK', 'green'));
       result.valid++;
     } else {
-      console.log(word, ': NO good !')
+      console.log(word, kuler('KO', 'red'))
       result.error++
     }
   });
   return result
 }).then((result) => {
-  console.log(result)
+  console.log(Math.trunc(result.valid/(result.error+result.valid)*100) + "%");
 });
 
 
