@@ -2,11 +2,12 @@
   "name": "text-quality-indicator",
   "version": "0.0.1",
   "description": "Return a indicator (in %) of any text, using dictionnary.",
-  "main": "index.js",
+  "main": "src/tqi.js",
   "directories": {
     "test": "test"
   },
   "dependencies": {
+    "async": "^1.5.2",
     "bluebird": "^3.4.0",
     "kuler": "0.0.0",
     "natural": "^0.4.0",
@@ -17,7 +18,7 @@
     "mocha": "^2.5.2"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "./node_modules/mocha/bin/mocha ./test/*-test.js"
   },
   "repository": {
     "type": "git",
