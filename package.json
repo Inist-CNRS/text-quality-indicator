@@ -12,7 +12,10 @@
     "natural": "^0.4.0",
     "nodehun": "^2.0.10"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "mocha": "^2.5.2"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
