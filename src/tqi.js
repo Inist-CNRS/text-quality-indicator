@@ -10,8 +10,21 @@ const natural = require('natural'),
 class Tqi {
 
   constructor(dic, aff) {
-    this._dic = dic || path.resolve(__dirname + '/../assets/dict-hunspell/en/en_US.dic');
-    this._aff = aff || path.resolve(__dirname + '/../assets/dict-hunspell/en/en_US.aff');
+    this._dic = dic || __dirname + '/../assets/dict-hunspell/en/en_US.dic';
+    this._aff = aff || __dirname + '/../assets/dict-hunspell/en/en_US.dic';
+    //CheckPaths
+    fs.access(this._dic,fs.R_OK,(err)=>{
+      if(err){
+        throw new Error("Bad path : ", err);
+      }
+      this._dic = path.resolve(this._dic);
+    });
+    fs.access(this._aff,fs.R_OK,(err)=>{
+      if(err){
+        throw new Error("Bad path : ", err);
+        this._aff = path.resolve(this._aff);
+      }
+    });
   }
 
   analyze(text) {
