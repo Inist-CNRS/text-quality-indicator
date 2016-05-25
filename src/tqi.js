@@ -1,8 +1,7 @@
 'use strict';
 
 const natural = require('natural'),
-  bluebird = require('bluebird'),
-  fs = bluebird.promisifyAll(require('fs')),
+  fs = require('fs'),
   path = require('path'),
   tokenizer = new natural.WordTokenizer(),
   async = require('async'),
@@ -15,7 +14,7 @@ class Tqi {
     this._aff = aff || path.resolve(__dirname + '/../assets/dict-hunspell/en/en_US.aff');
   }
 
-  analyze(text,callback) {
+  analyze(text) {
     const tokens = tokenizer.tokenize(text);
     // TODO : Gérer les cas de chemins invalides vers les fichiers dic et aff
     const dict = new nodehun(fs.readFileSync(this._aff), fs.readFileSync(this._dic));
@@ -24,24 +23,36 @@ class Tqi {
       error: 0,
       rate: 0
     };
-
-    async.each(tokens, (word,next) => {
-      if (dict.isCorrectSync(word)) {
-        result.valid++;
-      } else {
-        result.error++;
-      }
-      //next word
-      next();
-    } , (err) => {
-      if(err){
-        throw err;
-      }
-      result.rate = result.valid / (result.error + result.valid) * 100;
-      //Return result from module
-      callback(result);
-    });
+    return new Promise((resolve, reject) => {
+      async.each(tokens, (word, next) => {
+        dict.isCorrect(word, (err, correct, origWord) => {
+          if (err) {
+            return next(err)
+          }
+          if (correct) {
+            result.valid++;
+          } else {
+            result.error++;
+          }
+          next();
+        });
+      }, (err) => {
+        if (err) {
+          reject(err);
+        }
+        result.rate = result.valid / (result.error + result.valid) * 100;
+        //Return result from module
+        resolve(result);
+      });
+    })
   }
 }
 
 module.exports = Tqi;
+
+// const tqi = new Tqi();
+// console.time('test');
+// tqi.analyze(fs.readFileSync(path.resolve(__dirname + '/../test/data/test2.txt'), 'utf8')).then((result) => {
+//   console.timeEnd('test');
+//   console.log(result);
+// });
