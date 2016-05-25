@@ -29,7 +29,6 @@ class Tqi {
 
   analyze(text) {
     const tokens = tokenizer.tokenize(text);
-    // TODO : Gérer les cas de chemins invalides vers les fichiers dic et aff
     const dict = new nodehun(fs.readFileSync(this._aff), fs.readFileSync(this._dic));
     const result = {
       valid: 0,
