@@ -44,7 +44,8 @@ class Tqi {
           result.error++;
         }
         next();
-      }, (err) => {
+      }
+      , (err) => {
         if (err) {
           reject(err);
         }
@@ -52,15 +53,15 @@ class Tqi {
         //Return result from module
         resolve(result);
       });
-    })
+    });
   }
 }
 
 module.exports = Tqi;
 
-const tqi = new Tqi();
-console.time('test');
-tqi.analyze(fs.readFileSync(path.resolve(__dirname + '/../test/data/test2.txt'), 'utf8')).then((result) => {
-  console.timeEnd('test');
-  console.log(result);
-});
+// const tqi = new Tqi();
+// console.time('test');
+// tqi.analyze(fs.readFileSync(path.resolve(__dirname + '/../test/data/test2.txt'), 'utf8')).then((result) => {
+//   console.timeEnd('test');
+//   console.log(result);
+// });
