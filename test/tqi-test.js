@@ -29,7 +29,6 @@ describe(pkg.name + '/src/tqi.js', () => {
   describe('#Analyze', () => {
   	it('Analyze must return exact int numbers', function() {
 			return tqi.analyze(enBig).then(function(result){
-				console.log(typeof result.valid );
 			  expect(result.valid).to.be.a("number");
 			  expect(result.error).to.be.a("number");
 			});
