@@ -28,9 +28,12 @@ describe(pkg.name + '/src/tqi.js', () => {
   });
   describe('#Analyze', () => {
   	it('Analyze must return exact int numbers', function() {
+  		this.timeout = 5500;
 			return tqi.analyze(enBig).then(function(result){
 			  expect(result.valid).to.be.a("number");
 			  expect(result.error).to.be.a("number");
+			  expect(result.rate).to.be.a("number");
+			  expect(result.valid + result.error).to.be.equal(1454145);
 			});
   	});
   });

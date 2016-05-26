@@ -7,7 +7,9 @@
     "test": "test"
   },
   "dependencies": {
+    "args": "0.0.3",
     "async": "^1.5.2",
+    "kuler": "0.0.0",
     "natural": "^0.4.0",
     "nodehun": "^2.0.10"
   },
