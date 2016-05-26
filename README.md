@@ -10,3 +10,14 @@ TQI compares your text to a list of words comming from large dictionnaries in so
 ## Which languages do TQI support ?
 There are currently English/French/German.
 
+## How to use it ?
+Here is the command to use in your project
+```
+npm install text-quality-indicator
+```
+
+Or for use in console mode
+```
+npm install --global text-quality-indicator
+tqi --help
+```
