@@ -49,7 +49,7 @@ class Tqi {
           reject(err);
         }
         result.rate = result.valid / (result.error + result.valid) * 100;
-        //Return result from module
+        // Return result from module
         resolve(result);
       });
     });
@@ -57,10 +57,3 @@ class Tqi {
 }
 
 module.exports = Tqi;
-
-// const tqi = new Tqi();
-// console.time('test');
-// tqi.analyze(fs.readFileSync(path.resolve(__dirname + '/../test/data/test2.txt'), 'utf8')).then((result) => {
-//   console.timeEnd('test');
-//   console.log(result);
-// });
