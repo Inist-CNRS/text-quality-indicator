@@ -14,6 +14,7 @@ const Tqi = require('./../src/tqi'),
 
 program
   .version(pkg.version)
+  .usage('[options] <file>')
   .option('-l, --lang <en>', 'Choose en, de ou fr langage (en by default)', 'en')
   .parse(process.argv);
 
