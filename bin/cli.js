@@ -20,7 +20,7 @@ program
 
 fs.statAsync(program.args[0]).catch((err) => {
   console.log(kuler('Input file/folder doesn\'t exist', 'red'));
-  process.exit(1)
+  process.exit(1);
 }).then((stats) => {
   const analyzeThisFile = (file) => {
     return fs.readFileAsync(file, 'utf8').then((data) => {
