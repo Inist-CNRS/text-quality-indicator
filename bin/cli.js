@@ -44,33 +44,28 @@ fs.statAsync(program.args[0]).catch((err) => {
     })
   };
 
-  fs.statAsync(program.args[0]).catch((err) => {
-    console.log(kuler('Input file/folder doesn\'t exist', 'red'));
-    process.exit(1)
-  }).then((stats) => {
-    if (stats.isFile()) {
-      const input = path.resolve(program.args[0]);
-      analyzeThisFile(input).then((result) => {
-        console.log(path.basename(input), "=>", result);
-      });
-    } else {
-      const total = {valid: 0, error: 0, rate: 0},
-        input = path.resolve(program.args[0], "**/*.txt"),
-        arrayFiles = glob.sync(input);
+  if (stats.isFile()) {
+    const input = path.resolve(program.args[0]);
+    analyzeThisFile(input).then((result) => {
+      console.log(path.basename(input), "=>", result);
+    });
+  } else {
+    const total = {valid: 0, error: 0, rate: 0},
+      input = path.resolve(program.args[0], "**/*.txt"),
+      arrayFiles = glob.sync(input);
 
-      async.each(arrayFiles, (file, next) => {
-        analyzeThisFile(file).then((result) => {
-          total.valid += result.valid;
-          total.error += result.error;
-          console.log(path.basename(file), "=>", result);
-          next()
-        });
-      }, (err) => {
-        if (arrayFiles.length !== 1) {
-          total.rate = total.valid / (total.error + total.valid) * 100;
-          console.log("total =>", total);
-        }
+    async.each(arrayFiles, (file, next) => {
+      analyzeThisFile(file).then((result) => {
+        total.valid += result.valid;
+        total.error += result.error;
+        console.log(path.basename(file), "=>", result);
+        next()
       });
-    }
-  });
+    }, (err) => {
+      if (arrayFiles.length !== 1) {
+        total.rate = total.valid / (total.error + total.valid) * 100;
+        console.log("total =>", total);
+      }
+    });
+  }
 });
