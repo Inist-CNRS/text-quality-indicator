@@ -5,7 +5,6 @@
 const Tqi = require('./../src/tqi'),
   bluebird = require('bluebird'),
   fs = bluebird.promisifyAll(require('fs')),
-  isBinaryFile = require('isbinaryfile'),
   kuler = require('kuler'),
   pkg = require('./../package.json'),
   path = require('path'),
@@ -23,8 +22,8 @@ fs.statAsync(program.args[0]).catch((err) => {
   console.log(kuler('Input file/folder doesn\'t exist', 'red'));
   process.exit(1)
 }).then((stats) => {
-  if (stats.isFile()) {
-    fs.readFileAsync(path.resolve(program.args[0]), 'utf8').then((data) => {
+  const analyzeThisFile = (file) => {
+    return fs.readFileAsync(file, 'utf8').then((data) => {
       switch (program.lang) {
         case "de":
           const tqiDE = new Tqi(__dirname + '/../assets/dict-hunspell/de/de_DE_frami.dic', __dirname + '/../assets/dict-hunspell/de/de_DE_frami.aff');
@@ -42,44 +41,36 @@ fs.statAsync(program.args[0]).catch((err) => {
           console.log(kuler('Wrong code lang', 'red'));
           process.exit(1)
       }
-    }).then((result) => {
-      console.log(program.args[0], "=>", result);
-    });
-  } else {
-    const input = path.resolve(program.args[0], "**/*.txt"),
-      arrayFiles = glob.sync(input),
-      total = {valid: 0, error: 0, rate: 0};
+    })
+  };
 
-    async.each(arrayFiles, (file, next) => {
-      fs.readFileAsync(file, 'utf8').then((data) => {
-        switch (program.lang) {
-          case "de":
-            const tqiDE = new Tqi(__dirname + '/../assets/dict-hunspell/de/de_DE_frami.dic', __dirname + '/../assets/dict-hunspell/de/de_DE_frami.aff');
-            return tqiDE.analyze(data);
-            break;
-          case "fr":
-            const tqiFR = new Tqi(__dirname + '/../assets/dict-hunspell/fr_FR/fr.dic', __dirname + '/../assets/dict-hunspell/fr_FR/fr.aff');
-            return tqiFR.analyze(data);
-            break;
-          case "en":
-            const tqiEN = new Tqi();
-            return tqiEN.analyze(data);
-            break;
-          default:
-            console.log(kuler('Wrong code lang', 'red'));
-            process.exit(1)
-        }
-      }).then((result) => {
-        total.valid += result.valid;
-        total.error += result.error;
-        console.log(path.basename(file), "=>", result);
-        next();
+  fs.statAsync(program.args[0]).catch((err) => {
+    console.log(kuler('Input file/folder doesn\'t exist', 'red'));
+    process.exit(1)
+  }).then((stats) => {
+    if (stats.isFile()) {
+      const input = path.resolve(program.args[0]);
+      analyzeThisFile(input).then((result) => {
+        console.log(path.basename(input), "=>", result);
       });
-    }, (err) => {
-      if (arrayFiles.length !== 1) {
-        total.rate = total.valid / (total.error + total.valid) * 100;
-        console.log("total =>", total);
-      }
-    });
-  }
+    } else {
+      const total = {valid: 0, error: 0, rate: 0},
+        input = path.resolve(program.args[0], "**/*.txt"),
+        arrayFiles = glob.sync(input);
+
+      async.each(arrayFiles, (file, next) => {
+        analyzeThisFile(file).then((result) => {
+          total.valid += result.valid;
+          total.error += result.error;
+          console.log(path.basename(file), "=>", result);
+          next()
+        });
+      }, (err) => {
+        if (arrayFiles.length !== 1) {
+          total.rate = total.valid / (total.error + total.valid) * 100;
+          console.log("total =>", total);
+        }
+      });
+    }
+  });
 });

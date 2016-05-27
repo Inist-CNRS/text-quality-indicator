@@ -11,7 +11,6 @@
     "bluebird": "^3.4.0",
     "commander": "^2.9.0",
     "glob": "^7.0.3",
-    "isbinaryfile": "^3.0.0",
     "kuler": "0.0.0",
     "natural": "^0.4.0",
     "nodehun": "^2.0.10"
