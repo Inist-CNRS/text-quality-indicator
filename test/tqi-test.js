@@ -8,7 +8,8 @@ const pkg = require('./../package.json'),
   expect = chai.expect;
 
 var tqi = new Tqi(),
-  enBig = fs.readFileSync(path.resolve(__dirname + '/data/en-big.txt'), 'utf8');
+  enBig = fs.readFileSync(path.resolve(__dirname + '/data/en-big.txt'), 'utf8'),
+  emptyFile = fs.readFileSync(path.resolve(__dirname + '/data/empty-file.txt'), 'utf8');
 
 describe(pkg.name + '/src/tqi.js', function () {
   describe('#Constructor', function () {
@@ -33,6 +34,19 @@ describe(pkg.name + '/src/tqi.js', function () {
     this.timeout(5500);
     it('Analyze must return an object "result"', function (done) {
       tqi.analyze(enBig).then((result) => {
+        expect(result).to.have.property("valid");
+        expect(result.valid).to.be.a("number");
+        expect(result).to.have.property("error");
+        expect(result.error).to.be.a("number");
+        expect(result).to.have.property("rate");
+        expect(result.rate).to.be.a("number");
+        done();
+      }, (err) => {
+        done(err);
+      })
+    });
+    it('Analyze must return an object "result" even with an empty file', function (done) {
+      tqi.analyze(emptyFile).then((result) => {
         expect(result).to.have.property("valid");
         expect(result.valid).to.be.a("number");
         expect(result).to.have.property("error");
