@@ -30,12 +30,14 @@ class Tqi {
   analyze(text) {
     const tokens = tokenizer.tokenize(text);
     const dict = new nodehun(fs.readFileSync(this._aff), fs.readFileSync(this._dic));
-    const result = {
-      valid: 0,
-      error: 0,
-      rate: 0
-    };
+
     return new Promise((resolve, reject) => {
+      const result = {
+        valid: 0,
+        error: 0,
+        rate: 0
+      };
+
       async.each(tokens, (word, next) => {
         if (dict.isCorrectSync(word)) {
           result.valid++;
@@ -43,15 +45,19 @@ class Tqi {
           result.error++;
         }
         next();
-      }
-      , (err) => {
+      }, (err) => {
         if (err) {
           reject(err);
+        } else {
+          resolve(result);
         }
-        result.rate = result.valid / (result.error + result.valid) * 100;
-        // Return result from module
-        resolve(result);
       });
+    }).then((result) => {
+      const totalWords = result.valid + result.error;
+      if (totalWords !== 0) {
+        result.rate = result.valid / (result.error + result.valid) * 100;
+      }
+      return result;
     });
   }
 }
