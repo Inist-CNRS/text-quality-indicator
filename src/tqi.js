@@ -27,21 +27,28 @@ class Tqi {
     });
   }
 
-  analyze(text) {
+  analyze(text,options) {
     const tokens = tokenizer.tokenize(text);
     const dict = new nodehun(fs.readFileSync(this._aff), fs.readFileSync(this._dic));
+    options = options || { words : true };
 
     return new Promise((resolve, reject) => {
       const result = {
         valid: 0,
         error: 0,
-        rate: 0
+        rate: 0,
+        words : {  
+          found: [],
+          rest : []
+        }
       };
 
       async.each(tokens, (word, next) => {
         if (dict.isCorrectSync(word)) {
+          result.words.found.push(word);
           result.valid++;
         } else {
+          result.words.rest.push(word);
           result.error++;
         }
         next();
@@ -56,6 +63,10 @@ class Tqi {
       const totalWords = result.valid + result.error;
       if (totalWords !== 0) {
         result.rate = result.valid / (result.error + result.valid) * 100;
+      }
+      //we do not want words list
+      if(!options.words){
+        delete result.words;
       }
       return result;
     });
