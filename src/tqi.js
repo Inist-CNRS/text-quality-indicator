@@ -13,18 +13,14 @@ class Tqi {
     this._dic = dic || __dirname + '/../assets/dict-hunspell/en/en_US.dic';
     this._aff = aff || __dirname + '/../assets/dict-hunspell/en/en_US.aff';
     //CheckPaths
-    fs.access(this._dic, fs.R_OK, (err)=> {
-      if (err) {
-        throw new Error("Bad path : ", err);
-      }
-      this._dic = path.resolve(this._dic);
-    });
-    fs.access(this._aff, fs.R_OK, (err)=> {
-      if (err) {
-        throw new Error("Bad path : ", err);
-      }
-      this._aff = path.resolve(this._aff);
-    });
+    this._dic = path.resolve(this._dic);
+    this._aff = path.resolve(this._aff);
+    try {
+      this._dicFile = fs.readFileSync(this._dic);
+      this._affFile = fs.readFileSync(this._aff);
+    }catch(err){
+      throw new Error("Cannot read : ", err);
+    }
   }
 
   analyze(text,options) {

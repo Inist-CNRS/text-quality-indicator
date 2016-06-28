@@ -13,6 +13,13 @@ var tqi = new Tqi(),
 
 describe(pkg.name + '/src/tqi.js', function () {
   describe('#Constructor', function () {
+    it('Must throw error when bad path .dic sent', function (done) {
+      try {
+        var badTqi = new Tqi('a/very/bad/path');
+      } catch(error) {
+          done();
+      }
+    });
     it('Must have defaults path in .dic & .aff', () => {
       expect(tqi._dic).to.be.a('string');
       expect(tqi._aff).to.be.a('string');
