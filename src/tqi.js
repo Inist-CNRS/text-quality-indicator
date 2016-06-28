@@ -25,7 +25,7 @@ class Tqi {
 
   analyze(text,options) {
     const tokens = tokenizer.tokenize(text);
-    const dict = new nodehun(fs.readFileSync(this._aff), fs.readFileSync(this._dic));
+    const dict = new nodehun(this._affFile, this._dicFile);
     options = options || { words : true };
 
     return new Promise((resolve, reject) => {
