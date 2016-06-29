@@ -12,7 +12,8 @@ class Tqi {
 
   constructor(langs, dic, aff) {
     var self = this;
-    this._langs = langs;
+    this._langs = langs,
+    this._dicts = {};
 
     // Lang is string & mapping with lang exists
     if(typeof this._langs === "string"){
@@ -25,32 +26,39 @@ class Tqi {
       self._langs.slice(0).forEach(function (lang) {
         if(!mappingLang[lang]){
           self._langs.splice(self._langs.indexOf(lang),1);
+          return;
         }
+        mappingLang[lang].path.forEach(function(subDic){
+          console.log("subDic : " , subDic);
+          try {
+            self._dicts[subDic] = {};
+            self._dicts[subDic].dic = fs.readFileSync(path.resolve( __dirname + '/../node_modules/dictionaries/' + (subDic + ".dic") ));
+            self._dicts[subDic].aff = fs.readFileSync(path.resolve( __dirname + '/../node_modules/dictionaries/' + (subDic + ".aff") ));
+          }catch(err){
+            throw new Error("Cannot read : ", err);
+          }
+        });
+        
       });
     }
 
     //Make sure there is always a language
-    this._langs = (this._langs && this._langs.length) ? this._langs : ["en"];
-    
-
-    console.log(self._langs);
-    this._dic0 = __dirname + '/../assets/dict-hunspell/' + this._langs[0] + '/' + this._langs + '.dic';
-    this._aff0 = __dirname + '/../assets/dict-hunspell/' + this._langs[0] + '/' + this._langs + '.aff';
-    
-    // //CheckPaths
-    // this._dic = path.resolve(this._dic);
-    // this._aff = path.resolve(this._aff);
-    // try {
-    //   this._dicFile = fs.readFileSync(this._dic);
-    //   this._affFile = fs.readFileSync(this._aff);
-    // }catch(err){
-    //   throw new Error("Cannot read : ", err);
-    // }
+    if(!this._langs || !this._langs.length){
+      self._dicts["en"] = {};
+      try {
+        self._dicts["en"].dic = fs.readFileSync(path.resolve( __dirname + '/../node_modules/dictionaries/' + (mappingLang["en"].path + ".dic") ));
+        self._dicts["en"].aff = fs.readFileSync(path.resolve( __dirname + '/../node_modules/dictionaries/' + (mappingLang["en"].path + ".aff") ));
+      }catch(err){
+        throw new Error("Cannot read : ", err);
+      }
+    }    
+    console.log(this._dicts);
   }
 
   analyze(text,options) {
     const tokens = tokenizer.tokenize(text);
-    // const dict = new nodehun(this._affFile, this._dicFile);
+    const firstDict = this._dicts[Object.keys(this._dicts)[0]];
+    var dict = new nodehun(firstDict.aff, firstDict.dic);
     options = options || { words : true };
 
     return new Promise((resolve, reject) => {
@@ -94,6 +102,9 @@ class Tqi {
   }
 }
 
-var e =  new Tqi("ro");
+var e =  new Tqi(["ru","ro","fr"])
+e.analyze("Un petit bouldog anglais").then(function(result){
+  console.log("result : ", result);
+});
 
 module.exports = Tqi;
