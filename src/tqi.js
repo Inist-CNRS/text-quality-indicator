@@ -5,35 +5,52 @@ const natural = require('natural'),
   path = require('path'),
   tokenizer = new natural.WordTokenizer(),
   async = require('async'),
-  nodehun = require('nodehun');
+  nodehun = require('nodehun'),
+  mappingLang = require('./mappingLang');
 
 class Tqi {
 
-  constructor(lang, dic, aff) {
-    //If no lang send , takes dic & aff param or defaults
-    if(!lang){
-      this._dic = dic || __dirname + '/../assets/dict-hunspell/en/en_US.dic';
-      this._aff = aff || __dirname + '/../assets/dict-hunspell/en/en_US.aff';
+  constructor(langs, dic, aff) {
+    var self = this;
+    this._langs = langs;
+
+    // Lang is string & mapping with lang exists
+    if(typeof this._langs === "string"){
+      this._langs = mappingLang[langs] ? langs.split() : ["en"];
     }
-    else{
-      this._dic = __dirname + '/../assets/dict-hunspell/' + lang + '/' + lang + '.dic';
-      this._aff = __dirname + '/../assets/dict-hunspell/' + lang + '/' + lang + '.aff';
+
+    // Array of languages sent
+    if(Array.isArray(this._langs)){
+      //Remove non-present mapping language
+      self._langs.slice(0).forEach(function (lang) {
+        if(!mappingLang[lang]){
+          self._langs.splice(self._langs.indexOf(lang),1);
+        }
+      });
     }
+
+    //Make sure there is always a language
+    this._langs = (this._langs && this._langs.length) ? this._langs : ["en"];
     
-    //CheckPaths
-    this._dic = path.resolve(this._dic);
-    this._aff = path.resolve(this._aff);
-    try {
-      this._dicFile = fs.readFileSync(this._dic);
-      this._affFile = fs.readFileSync(this._aff);
-    }catch(err){
-      throw new Error("Cannot read : ", err);
-    }
+
+    console.log(self._langs);
+    this._dic0 = __dirname + '/../assets/dict-hunspell/' + this._langs[0] + '/' + this._langs + '.dic';
+    this._aff0 = __dirname + '/../assets/dict-hunspell/' + this._langs[0] + '/' + this._langs + '.aff';
+    
+    // //CheckPaths
+    // this._dic = path.resolve(this._dic);
+    // this._aff = path.resolve(this._aff);
+    // try {
+    //   this._dicFile = fs.readFileSync(this._dic);
+    //   this._affFile = fs.readFileSync(this._aff);
+    // }catch(err){
+    //   throw new Error("Cannot read : ", err);
+    // }
   }
 
   analyze(text,options) {
     const tokens = tokenizer.tokenize(text);
-    const dict = new nodehun(this._affFile, this._dicFile);
+    // const dict = new nodehun(this._affFile, this._dicFile);
     options = options || { words : true };
 
     return new Promise((resolve, reject) => {
@@ -76,5 +93,7 @@ class Tqi {
     });
   }
 }
+
+var e =  new Tqi("ro");
 
 module.exports = Tqi;
