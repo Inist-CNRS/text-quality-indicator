@@ -17,36 +17,22 @@ class Tqi {
 
     // Lang is string & mapping with lang exists
     if(typeof this._langs === "string"){
-      this._langs = mappingLang[langs] ? langs.split() : ["en"];
+      this._langs = mappingLang[langs] ? this._langs : "en";
     }
 
-    // Array of languages sent
-    if(Array.isArray(this._langs)){
-      //Remove non-present mapping language
-      self._langs.slice(0).forEach(function (lang) {
-        if(!mappingLang[lang]){
-          self._langs.splice(self._langs.indexOf(lang),1);
-          return;
-        }
-        getSubdictionnaries(lang);    
-      });
-    }
+    // Ther is sublangues
+    mappingLang[this._langs].path.forEach(function (subLang) {
+      getSubdictionnaries(subLang);
+    });
 
-    //Make sure there is always a language
-    if(!this._langs || !this._langs.length){
-      getSubdictionnaries("en"); 
-    }
-
-    function getSubdictionnaries(lang){
-      mappingLang[lang].path.forEach(function(subDic){
-        try {
-          self._dicts[subDic] = {};
-          self._dicts[subDic].dic = fs.readFileSync(path.resolve( __dirname + '/../node_modules/dictionaries/' + (subDic + ".dic") ));
-          self._dicts[subDic].aff = fs.readFileSync(path.resolve( __dirname + '/../node_modules/dictionaries/' + (subDic + ".aff") ));
-        }catch(err){
-          throw new Error("Cannot read : ", err);
-        }
-      });
+    function getSubdictionnaries(subLang){
+      try {
+        self._dicts[subLang] = {};
+        self._dicts[subLang].dic = fs.readFileSync(path.resolve( __dirname + '/../node_modules/dictionaries/' + (subLang + ".dic") ));
+        self._dicts[subLang].aff = fs.readFileSync(path.resolve( __dirname + '/../node_modules/dictionaries/' + (subLang + ".aff") ));
+      }catch(err){
+        throw new Error("Cannot read : ", err);
+      }
     }
 
   }
@@ -56,12 +42,14 @@ class Tqi {
     const dictionaries = Object.keys(this._dicts);
     const firstDict = this._dicts[dictionaries[0]];
     var dict = new nodehun(firstDict.aff, firstDict.dic);
-
-    if(dictionaries.length > 1){
-      async.forEachOf(this._dicts,function(val,lang,cb){
-        console.log("lang : " ,lang  , val.dic)
-        //dic.addDictionary(this._dicts[lang].dic,)
-      });
+    delete this._dicts[dictionaries[0]];
+    
+    // There is subdictionnaries to used
+    if(dictionaries.length){
+      console.log(dictionaries)
+      async.forEachOf(this._dicts, function(val,subLang,arr){
+        console.log("sublang : " , subLang , " val " , val)
+      })
     }
 
     options = options || { words : true };
@@ -107,9 +95,9 @@ class Tqi {
   }
 }
 
-// var e =  new Tqi(["ru","ro","en"])
-// e.analyze("Un petit bouldog anglais").then(function(result){
-//   console.log("result : ", result);
-// });
+var e =  new Tqi("pt")
+e.analyze("Un petit bouldog anglais").then(function(result){
+  console.log("result : ", result);
+});
 
 module.exports = Tqi;
