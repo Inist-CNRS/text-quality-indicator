@@ -1,0 +1,86 @@
+{
+  "bg": {
+    "lang": "BULGARIAN",
+    "path": ["bg_BG/bg_BG"]
+  },
+  "cs": {
+    "lang": "CZECH",
+    "path": ["cs_CZ/cs_CZ"]
+  },
+  "da": {
+    "lang": "DANISH",
+    "path": ["da_DK/da_DK"]
+  },
+  "de": {
+    "lang": "GERMAN",
+    "path": ["de/de_AT_frami", "de/de_CH_frami", "de/de_DE_frami"]
+  },
+  "en": {
+    "lang": "ENGLISH",
+    "path": ["en/en_US", "en/en_CA", "en/en_GB"]
+  },
+  "es": {
+    "lang": "SPANISH",
+    "path": ["es/es_ANY"]
+  },
+  "et": {
+    "lang": "ESTONIAN",
+    "path": ["et_EE/et_EE"]
+  },
+  "fr": {
+    "lang": "FRENCH",
+    "path": ["fr_FR/fr"]
+  },
+  "hr": {
+    "lang": "CROATIAN",
+    "path": ["hr_HR/hr_HR"]
+  },
+  "hu": {
+    "lang": "HUNGARIAN",
+    "path": ["hu/hu_HU"]
+  },
+  "it": {
+    "lang": "ITALIAN",
+    "path": ["it_IT/it_IT"]
+  },
+  "iw": {
+    "lang": "HEBREW",
+    "path": ["he_IL/he_IL"]
+  },
+  "lt": {
+    "lang": "LITHUANIAN",
+    "path": ["lt_LT/lt"]
+  },
+  "nl": {
+    "lang": "DUTCH",
+    "path": ["nl_NL/nl_NL"]
+  },
+  "no": {
+    "lang": "NORWEGIAN",
+    "path": ["no/nb_NO", "nn_NO"]
+  },
+  "pl": {
+    "lang": "POLISH",
+    "path": ["pl_PL/pl_PL"]
+  },
+  "pt": {
+    "lang": "PORTUGUESE",
+    "path": ["pt_BR/pt_BR", "pt-PT/pt_PT"]
+  },
+  "ro": {
+    "lang": "ROMANIAN",
+    "path": ["ro/ro_RO"]
+  },
+  "ru": {
+    "lang": "RUSSIAN",
+    "path": ["ru_RU/ru_RU"]
+  },
+  "sr": {
+    "lang": "SERBIAN",
+    "path": ["sr/sr"]
+  },
+  "sv": {
+    "lang": "SWEDISH",
+    "path": ["sv_SE/sv_SE", "sv_SE/sv_FI"]
+  }
+}

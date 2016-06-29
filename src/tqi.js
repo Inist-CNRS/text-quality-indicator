@@ -28,37 +28,42 @@ class Tqi {
           self._langs.splice(self._langs.indexOf(lang),1);
           return;
         }
-        mappingLang[lang].path.forEach(function(subDic){
-          console.log("subDic : " , subDic);
-          try {
-            self._dicts[subDic] = {};
-            self._dicts[subDic].dic = fs.readFileSync(path.resolve( __dirname + '/../node_modules/dictionaries/' + (subDic + ".dic") ));
-            self._dicts[subDic].aff = fs.readFileSync(path.resolve( __dirname + '/../node_modules/dictionaries/' + (subDic + ".aff") ));
-          }catch(err){
-            throw new Error("Cannot read : ", err);
-          }
-        });
-        
+        getSubdictionnaries(lang);    
       });
     }
 
     //Make sure there is always a language
     if(!this._langs || !this._langs.length){
-      self._dicts["en"] = {};
-      try {
-        self._dicts["en"].dic = fs.readFileSync(path.resolve( __dirname + '/../node_modules/dictionaries/' + (mappingLang["en"].path + ".dic") ));
-        self._dicts["en"].aff = fs.readFileSync(path.resolve( __dirname + '/../node_modules/dictionaries/' + (mappingLang["en"].path + ".aff") ));
-      }catch(err){
-        throw new Error("Cannot read : ", err);
-      }
-    }    
-    console.log(this._dicts);
+      getSubdictionnaries("en"); 
+    }
+
+    function getSubdictionnaries(lang){
+      mappingLang[lang].path.forEach(function(subDic){
+        try {
+          self._dicts[subDic] = {};
+          self._dicts[subDic].dic = fs.readFileSync(path.resolve( __dirname + '/../node_modules/dictionaries/' + (subDic + ".dic") ));
+          self._dicts[subDic].aff = fs.readFileSync(path.resolve( __dirname + '/../node_modules/dictionaries/' + (subDic + ".aff") ));
+        }catch(err){
+          throw new Error("Cannot read : ", err);
+        }
+      });
+    }
+
   }
 
   analyze(text,options) {
     const tokens = tokenizer.tokenize(text);
-    const firstDict = this._dicts[Object.keys(this._dicts)[0]];
+    const dictionaries = Object.keys(this._dicts);
+    const firstDict = this._dicts[dictionaries[0]];
     var dict = new nodehun(firstDict.aff, firstDict.dic);
+
+    if(dictionaries.length > 1){
+      async.forEachOf(this._dicts,function(val,lang,cb){
+        console.log("lang : " ,lang  , val.dic)
+        //dic.addDictionary(this._dicts[lang].dic,)
+      });
+    }
+
     options = options || { words : true };
 
     return new Promise((resolve, reject) => {
@@ -102,9 +107,9 @@ class Tqi {
   }
 }
 
-var e =  new Tqi(["ru","ro","fr"])
-e.analyze("Un petit bouldog anglais").then(function(result){
-  console.log("result : ", result);
-});
+// var e =  new Tqi(["ru","ro","en"])
+// e.analyze("Un petit bouldog anglais").then(function(result){
+//   console.log("result : ", result);
+// });
 
 module.exports = Tqi;
