@@ -9,9 +9,17 @@ const natural = require('natural'),
 
 class Tqi {
 
-  constructor(dic, aff) {
-    this._dic = dic || __dirname + '/../assets/dict-hunspell/en/en_US.dic';
-    this._aff = aff || __dirname + '/../assets/dict-hunspell/en/en_US.aff';
+  constructor(lang, dic, aff) {
+    //If no lang send , takes dic & aff param or defaults
+    if(!lang){
+      this._dic = dic || __dirname + '/../assets/dict-hunspell/en/en_US.dic';
+      this._aff = aff || __dirname + '/../assets/dict-hunspell/en/en_US.aff';
+    }
+    else{
+      this._dic = __dirname + '/../assets/dict-hunspell/' + lang + '/' + lang + '.dic';
+      this._aff = __dirname + '/../assets/dict-hunspell/' + lang + '/' + lang + '.aff';
+    }
+    
     //CheckPaths
     this._dic = path.resolve(this._dic);
     this._aff = path.resolve(this._aff);
