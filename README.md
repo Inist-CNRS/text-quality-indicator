@@ -1,3 +1,4 @@
+[![Build Status](https://travis-ci.org/Inist-CNRS/text-quality-indicator.svg?branch=master)](https://travis-ci.org/Inist-CNRS/text-quality-indicator)
 # Text Quality Indicator
 Return a indicator (in %) of any text, using dictionnary.
 
