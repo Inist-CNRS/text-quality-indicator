@@ -34,27 +34,29 @@ class Tqi {
         throw new Error("Cannot read : ", err);
       }
     }
-
+    this._dictionaries = Object.keys(this._dicts);
+    this._firstDict = this._dicts[this._dictionaries[0]];
+    this._dict = new nodehun(this._firstDict.aff, this._firstDict.dic);
+    
+    //RM first dict already loaded
+    delete this._dicts[this._dictionaries[0]];
+    this._dictionaries.shift();
   }
 
   analyze(text,options) {
     const tokens = tokenizer.tokenize(text);
-    const dictionaries = Object.keys(this._dicts);
-    const firstDict = this._dicts[dictionaries[0]];
-    var dict = new nodehun(firstDict.aff, firstDict.dic);
-    delete this._dicts[dictionaries[0]];
-    
-    // There is subdictionnaries to used
-    if(dictionaries.length){
-      console.log(dictionaries)
-      async.forEachOf(this._dicts, function(val,subLang,arr){
-        console.log("sublang : " , subLang , " val " , val)
-      })
-    }
-
+    var self = this;
     options = options || { words : true };
 
     return new Promise((resolve, reject) => {
+
+        // Multiple dictionnaries
+      if(this._dictionaries.length){
+        for(var subLang in self._dicts){
+          self._dict.addDictionarySync(self._dicts[subLang].dic);
+        }
+      }
+
       const result = {
         valid: 0,
         error: 0,
@@ -66,7 +68,7 @@ class Tqi {
       };
 
       async.each(tokens, (word, next) => {
-        if (dict.isCorrectSync(word)) {
+        if (self._dict.isCorrectSync(word)) {
           result.words.found.push(word);
           result.valid++;
         } else {
@@ -95,8 +97,8 @@ class Tqi {
   }
 }
 
-var e =  new Tqi("pt")
-e.analyze("Un petit bouldog anglais").then(function(result){
+var e =  new Tqi("en")
+e.analyze("A little cat with a black color and maybe a colour abridgement").then(function(result){
   console.log("result : ", result);
 });
 
