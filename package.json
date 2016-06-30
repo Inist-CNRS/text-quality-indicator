@@ -12,6 +12,7 @@
     "commander": "^2.9.0",
     "glob": "^7.0.3",
     "kuler": "0.0.0",
+    "napa": "^2.3.0",
     "natural": "^0.4.0",
     "nodehun": "^2.0.10"
   },
@@ -20,6 +21,7 @@
     "mocha": "^2.5.2"
   },
   "scripts": {
+    "install": "napa http://github.com/LibreOffice/dictionaries",
     "test": "mocha"
   },
   "bin": {
