@@ -19,12 +19,26 @@ class Tqi {
     if(typeof this._langs === "string"){
       this._langs = mappingLang[langs] ? this._langs : "en";
     }
+    else{
+      this._langs = "en"
+    }
 
-    // Ther is sublangues
-    mappingLang[this._langs].path.forEach(function (subLang) {
-      getSubdictionnaries(subLang);
-    });
-
+    if(!dic||aff){
+      // Ther is sublangues
+      mappingLang[this._langs].path.forEach(function (subLang) {
+        getSubdictionnaries(subLang);
+      });
+    }
+    else{
+      try{
+        self._dicts[this._langs] = {};
+        self._dicts[this._langs].dic = fs.readFileSync(path.resolve(dic));
+        self._dicts[this._langs].aff = fs.readFileSync(path.resolve(aff));
+      }catch(err){
+        throw new Error("Cannot open dic sent : ", err);
+      }
+    }
+    
     function getSubdictionnaries(subLang){
       try {
         self._dicts[subLang] = {};
@@ -97,9 +111,9 @@ class Tqi {
   }
 }
 
-var e =  new Tqi("en")
-e.analyze("A little cat with a black color and maybe a colour abridgement").then(function(result){
-  console.log("result : ", result);
-});
+// var e =  new Tqi("fr")
+// e.analyze("A little cat with a black color and maybe a colour abridgement").then(function(result){
+//   console.log("result : ", result);
+// });
 
 module.exports = Tqi;
