@@ -104,7 +104,6 @@ class Tqi {
 
   getDictionnaries(lang,dic,aff) {
     lang = lang || this._langs;
-    console.log(lang , dic , aff)
     dic = dic || __dirname + '/../node_modules/dictionaries/' + (lang + ".dic");
     aff = aff || __dirname + '/../node_modules/dictionaries/' + (lang + ".aff");
     try {
