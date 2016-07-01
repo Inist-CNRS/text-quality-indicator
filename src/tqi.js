@@ -17,19 +17,17 @@ class Tqi {
     // Lang is string & mapping with lang exists
     if (typeof this._langs === "string") {
       this._langs = mappingLang[langs] ? this._langs : "en";
-    }
-    else {
+    } else {
       this._langs = "en"
     }
 
     // There isn't dic or aff sent
-    if (!(dic || aff)) {
+    if (!(dic && aff)) {
       // There is sublangues
       mappingLang[this._langs].path.forEach(function (subLang) {
         self.getDictionnaries(subLang);
       });
-    }
-    else {
+    } else {
       self.getDictionnaries(null, dic, aff);
     }
 

@@ -23,14 +23,7 @@ describe(pkg.name + '/src/tqi.js', function () {
     });
     it('Must throw error when bad path .dic sent', function (done) {
       try {
-        var badTqi = new Tqi(null,'a/very/bad/path.dic');
-      } catch(error) {
-          done();
-      }
-    });
-    it('Must throw error when bad path .aff sent', function (done) {
-      try {
-        var badTqi = new Tqi(null,null,'a/very/bad/path.dic');
+        var badTqi = new Tqi(null,'a/very/bad/path.dic', 'a/very/bad/path.aff');
       } catch(error) {
           done();
       }
