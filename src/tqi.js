@@ -116,10 +116,4 @@ class Tqi {
   }
 }
 
-//This is a just an example of use
-// var e =  new Tqi();
-// e.analyze("a weekend in high't color colour").then(function(result){
-//   console.log("result : ", result);
-// });
-
 module.exports = Tqi;
