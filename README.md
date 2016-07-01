@@ -14,8 +14,6 @@ You could use all languages which are in nodes_modules/dictionnaries but you nee
 
 ## How to use it ?
 
-info : API method will always return you found/rest words, not CLI programm (use option -w) 
-
 #### Using our module in your project :
 
 ```javascript
@@ -25,8 +23,14 @@ npm install --save text-quality-indicator
 var Tqi = require('text-quality-indicator'),
     tqi = new Tqi();
 
+// Words found/rest are sent by default
+var options = {words: true}
+
+// But you can disable it
+options =  {words: false}
+
 // Analyze a string
-tqi.analyze("Some english words").then((result) => {
+tqi.analyze("Some english words",options).then((result) => {
   console.log("result : ", result);
 }
 
@@ -38,6 +42,9 @@ tqi.analyze("Some english words").then((result) => {
 }
 ```
 
+INFO : API method will always return you found/rest words, not CLI programm (use option -w) 
+
+
 When you init TQI you can send 3 arguments:
 
 ```
@@ -47,6 +54,8 @@ When you init TQI you can send 3 arguments:
 ```
 
 First argument is the "code Lang" used to tokenize words & load default dictionaries, but you can overwritte them with second & third arguments.
+
+
 
 #### Using our CLI programm
 
@@ -78,7 +87,13 @@ tqi --help
 
 - On an english folder containing txts :
   
-   ```bash
+  ```bash
     tqi /path/to/folder
   ```
   English is the default lang used.
+
+You can ask cli to send back you the found/rest words :
+
+```bash
+./bin/cli.js -w true ./pathToTxt.txt
+```
