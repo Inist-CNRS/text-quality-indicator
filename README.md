@@ -8,15 +8,43 @@ TQI is a node.js written module which get any text data and return you a number 
 TQI compares your text to a list of words comming from large affix dictionnaries in some languages.
 
 ## Which languages do TQI support ?
-There are currently English/French/German.
+There are currently ENGLISH/SPANISH/FRENCH/GERMAN/DUTCH/NORWEGIAN/PORTUGUESE.
+
+You could use all languages which are in nodes_modules/dictionnaries but you need to add tokenization reGEX into src/mapping.js
 
 ## How to use it ?
 
+info : API method will always return you found/rest words, not CLI programm (use option -w) 
+
 #### Using our module in your project :
 
+```javascript
+npm install --save text-quality-indicator
+
+// Load NPM Module
+var Tqi = require('text-quality-indicator'),
+    tqi = new Tqi();
+
+// Analyze a string
+tqi.analyze("Some english words").then((result) => {
+  console.log("result : ", result);
+}
+
+// Will return you :
+{ valid: 3,
+  error: 0,
+  rate: 100,
+  words: { found: [ 'somme', 'english', 'words' ], rest: [] } 
+}
 ```
-npm install text-quality-indicator
+
+When you init TQI you can send 3 arguments:
 ```
+  var Tqi = require('text-quality-indicator'),
+      tqi = new Tqi("en"),
+      tqi2 = new Tqi(null, .dicPath, .affPath);
+```
+First argument is the "code Lang" used to tokenize words & load default dictionaries, but you can overwritte them with second & third arguments.
 
 #### Using our CLI programm
 
