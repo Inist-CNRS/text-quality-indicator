@@ -16,7 +16,7 @@ program
   .version(pkg.version)
   .usage('[options] <file.txt>')
   .option('-l, --lang <en>', 'Choose en, de ou fr langage (en by default)', 'en')
-  .option('-w, --words <false>', 'If true, will show found/rest list of words (disable by default)', false)
+  .option('-w, --words', 'If true, will show found/rest list of words (disable by default)')
   .parse(process.argv);
 
 
@@ -25,7 +25,7 @@ fs.statAsync(program.args[0]).catch((err) => {
   process.exit(1);
 }).then((stats) => {
   const analyzeThisFile = (file) => {
-    const options = { words : program.verbose };
+    const options = { words : program.words };
     return fs.readFileAsync(file, 'utf8').then((data) => {
       switch (program.lang) {
         case "de":
