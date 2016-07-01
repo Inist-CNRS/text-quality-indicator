@@ -15,8 +15,8 @@ const Tqi = require('./../src/tqi'),
 program
   .version(pkg.version)
   .usage('[options] <file.txt>')
-  .option('-l, --lang <en>', 'Choose code lang (en by default)', 'en')
-  .option('-w, --words <false>', 'If true, will show found/rest list of words (disable by default)', false)
+  .option('-l, --lang <en>', 'Choose en, de ou fr langage (en by default)', 'en')
+  .option('-w, --words', 'If true, will show found/rest list of words (disable by default)')
   .parse(process.argv);
 
 
