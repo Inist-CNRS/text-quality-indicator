@@ -3,7 +3,6 @@
 const natural = require('natural'),
   fs = require('fs'),
   path = require('path'),
-  tokenizer = new natural.WordTokenizer(),
   async = require('async'),
   nodehun = require('nodehun'),
   mappingLang = require('./mappingLang');
@@ -23,22 +22,18 @@ class Tqi {
       this._langs = "en"
     }
 
+    // There isn't dic or aff sent
     if (!dic || !aff) {
       // There is sublangues
       mappingLang[this._langs].path.forEach(function (subLang) {
-        self.getSubdictionnaries(subLang);
+        self.getDictionnaries(subLang);
       });
     }
     else {
-      try {
-        self._dicts[this._langs] = {};
-        self._dicts[this._langs].dic = fs.readFileSync(path.resolve(dic));
-        self._dicts[this._langs].aff = fs.readFileSync(path.resolve(aff));
-      } catch (err) {
-        throw new Error("Cannot open dic sent : ", err);
-      }
+      self.getDictionnaries(null, dic, aff);
     }
 
+    // Load First dictionnary in nodeHun
     this._dictionaries = Object.keys(this._dicts);
     this._firstDict = this._dicts[this._dictionaries[0]];
     this._dict = new nodehun(this._firstDict.aff, this._firstDict.dic);
@@ -46,16 +41,22 @@ class Tqi {
     //RM first dict already loaded
     delete this._dicts[this._dictionaries[0]];
     this._dictionaries.shift();
+
+    // Regex tokenizer following lang sent
+    this._langObj = mappingLang[this._langs];
+    this._regex = (this._langObj.regex && (eval(this._langObj.regex) instanceof RegExp)) ?  eval(this._langObj.regex) : " ";
+    this._tokenizer = new natural.WordTokenizer({ pattern: this._regex });
   }
 
   analyze(text, options) {
-    const tokens = tokenizer.tokenize(text);
-    var self = this;
+    
+    var tokens = this._tokenizer.tokenize(text),
+        self = this;
     options = options || {words: true};
 
     return new Promise((resolve, reject) => {
 
-      // Multiple dictionnaries
+      // Load Multiple SubDictionnaries in NodeHun
       if (this._dictionaries.length) {
         for (var subLang in self._dicts) {
           self._dict.addDictionarySync(self._dicts[subLang].dic);
@@ -93,7 +94,7 @@ class Tqi {
       if (totalWords !== 0) {
         result.rate = result.valid / (result.error + result.valid) * 100;
       }
-      //we do not want words list
+      //Do not want words list
       if (!options.words) {
         delete result.words;
       }
@@ -101,20 +102,24 @@ class Tqi {
     });
   }
 
-  getSubdictionnaries(subLang) {
+  getDictionnaries(lang,dic,aff) {
+    lang = lang || this._langs;
+    dic = dic || __dirname + '/../node_modules/dictionaries/' + (lang + ".dic");
+    aff = aff || __dirname + '/../node_modules/dictionaries/' + (lang + ".aff");
     try {
-      this._dicts[subLang] = {};
-      this._dicts[subLang].dic = fs.readFileSync(path.resolve(__dirname + '/../node_modules/dictionaries/' + (subLang + ".dic")));
-      this._dicts[subLang].aff = fs.readFileSync(path.resolve(__dirname + '/../node_modules/dictionaries/' + (subLang + ".aff")));
+      this._dicts[lang] = {};
+      this._dicts[lang].dic = fs.readFileSync(path.resolve(dic));
+      this._dicts[lang].aff = fs.readFileSync(path.resolve(aff));
     } catch (err) {
       throw new Error("Cannot read : ", err);
     }
   }
 }
 
-var e =  new Tqi("en");
-e.analyze("A little cat with a black color and maybe a colour abridgement").then(function(result){
-  console.log("result : ", result);
-});
+//This is a just an example of use
+// var e =  new Tqi();
+// e.analyze("a weekend in high't color colour").then(function(result){
+//   console.log("result : ", result);
+// });
 
 module.exports = Tqi;
