@@ -12,61 +12,52 @@ class Tqi {
 
   constructor(langs, dic, aff) {
     var self = this;
-    this._langs = langs,
+    this._langs = langs;
     this._dicts = {};
 
     // Lang is string & mapping with lang exists
-    if(typeof this._langs === "string"){
+    if (typeof this._langs === "string") {
       this._langs = mappingLang[langs] ? this._langs : "en";
     }
-    else{
+    else {
       this._langs = "en"
     }
 
-    if(!dic||aff){
-      // Ther is sublangues
+    if (!dic || !aff) {
+      // There is sublangues
       mappingLang[this._langs].path.forEach(function (subLang) {
-        getSubdictionnaries(subLang);
+        self.getSubdictionnaries(subLang);
       });
     }
-    else{
-      try{
+    else {
+      try {
         self._dicts[this._langs] = {};
         self._dicts[this._langs].dic = fs.readFileSync(path.resolve(dic));
         self._dicts[this._langs].aff = fs.readFileSync(path.resolve(aff));
-      }catch(err){
+      } catch (err) {
         throw new Error("Cannot open dic sent : ", err);
       }
     }
-    
-    function getSubdictionnaries(subLang){
-      try {
-        self._dicts[subLang] = {};
-        self._dicts[subLang].dic = fs.readFileSync(path.resolve( __dirname + '/../node_modules/dictionaries/' + (subLang + ".dic") ));
-        self._dicts[subLang].aff = fs.readFileSync(path.resolve( __dirname + '/../node_modules/dictionaries/' + (subLang + ".aff") ));
-      }catch(err){
-        throw new Error("Cannot read : ", err);
-      }
-    }
+
     this._dictionaries = Object.keys(this._dicts);
     this._firstDict = this._dicts[this._dictionaries[0]];
     this._dict = new nodehun(this._firstDict.aff, this._firstDict.dic);
-    
+
     //RM first dict already loaded
     delete this._dicts[this._dictionaries[0]];
     this._dictionaries.shift();
   }
 
-  analyze(text,options) {
+  analyze(text, options) {
     const tokens = tokenizer.tokenize(text);
     var self = this;
-    options = options || { words : true };
+    options = options || {words: true};
 
     return new Promise((resolve, reject) => {
 
-        // Multiple dictionnaries
-      if(this._dictionaries.length){
-        for(var subLang in self._dicts){
+      // Multiple dictionnaries
+      if (this._dictionaries.length) {
+        for (var subLang in self._dicts) {
           self._dict.addDictionarySync(self._dicts[subLang].dic);
         }
       }
@@ -75,9 +66,9 @@ class Tqi {
         valid: 0,
         error: 0,
         rate: 0,
-        words : {  
+        words: {
           found: [],
-          rest : []
+          rest: []
         }
       };
 
@@ -103,17 +94,27 @@ class Tqi {
         result.rate = result.valid / (result.error + result.valid) * 100;
       }
       //we do not want words list
-      if(!options.words){
+      if (!options.words) {
         delete result.words;
       }
       return result;
     });
   }
+
+  getSubdictionnaries(subLang) {
+    try {
+      this._dicts[subLang] = {};
+      this._dicts[subLang].dic = fs.readFileSync(path.resolve(__dirname + '/../node_modules/dictionaries/' + (subLang + ".dic")));
+      this._dicts[subLang].aff = fs.readFileSync(path.resolve(__dirname + '/../node_modules/dictionaries/' + (subLang + ".aff")));
+    } catch (err) {
+      throw new Error("Cannot read : ", err);
+    }
+  }
 }
 
-// var e =  new Tqi("fr")
-// e.analyze("A little cat with a black color and maybe a colour abridgement").then(function(result){
-//   console.log("result : ", result);
-// });
+var e =  new Tqi("en");
+e.analyze("A little cat with a black color and maybe a colour abridgement").then(function(result){
+  console.log("result : ", result);
+});
 
 module.exports = Tqi;
