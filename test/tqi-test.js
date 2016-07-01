@@ -15,7 +15,7 @@ describe(pkg.name + '/src/tqi.js', function () {
   describe('#Constructor', function () {
     it('Must throw error when bad path .dic sent', function (done) {
       try {
-        var badTqi = new Tqi(null,'a/very/bad/path');
+        var badTqi = new Tqi(null,'a/very/bad/path.dic');
       } catch(error) {
           done();
       }

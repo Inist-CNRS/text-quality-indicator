@@ -23,7 +23,7 @@ class Tqi {
     }
 
     // There isn't dic or aff sent
-    if (!dic || !aff) {
+    if (!(dic || aff)) {
       // There is sublangues
       mappingLang[this._langs].path.forEach(function (subLang) {
         self.getDictionnaries(subLang);
@@ -104,6 +104,7 @@ class Tqi {
 
   getDictionnaries(lang,dic,aff) {
     lang = lang || this._langs;
+    console.log(lang , dic , aff)
     dic = dic || __dirname + '/../node_modules/dictionaries/' + (lang + ".dic");
     aff = aff || __dirname + '/../node_modules/dictionaries/' + (lang + ".aff");
     try {
