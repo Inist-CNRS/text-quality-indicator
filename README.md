@@ -39,11 +39,13 @@ tqi.analyze("Some english words").then((result) => {
 ```
 
 When you init TQI you can send 3 arguments:
+
 ```
   var Tqi = require('text-quality-indicator'),
       tqi = new Tqi("en"),
       tqi2 = new Tqi(null, .dicPath, .affPath);
 ```
+
 First argument is the "code Lang" used to tokenize words & load default dictionaries, but you can overwritte them with second & third arguments.
 
 #### Using our CLI programm

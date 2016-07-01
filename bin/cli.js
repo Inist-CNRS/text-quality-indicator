@@ -15,7 +15,7 @@ const Tqi = require('./../src/tqi'),
 program
   .version(pkg.version)
   .usage('[options] <file.txt>')
-  .option('-l, --lang <en>', 'Choose en, de ou fr langage (en by default)', 'en')
+  .option('-l, --lang <en>', 'Choose code lang (en by default)', 'en')
   .option('-w, --words <false>', 'If true, will show found/rest list of words (disable by default)', false)
   .parse(process.argv);
 
@@ -25,25 +25,10 @@ fs.statAsync(program.args[0]).catch((err) => {
   process.exit(1);
 }).then((stats) => {
   const analyzeThisFile = (file) => {
-    const options = { words : program.verbose };
+    const options = { words : program.words };
     return fs.readFileAsync(file, 'utf8').then((data) => {
-      switch (program.lang) {
-        case "de":
-          const tqiDE = new Tqi(__dirname + '/../assets/dict-hunspell/de/de_DE_frami.dic', __dirname + '/../assets/dict-hunspell/de/de_DE_frami.aff');
-          return tqiDE.analyze(data,options);
-          break;
-        case "fr":
-          const tqiFR = new Tqi(__dirname + '/../assets/dict-hunspell/fr_FR/fr.dic', __dirname + '/../assets/dict-hunspell/fr_FR/fr.aff');
-          return tqiFR.analyze(data,options);
-          break;
-        case "en":
-          const tqiEN = new Tqi();
-          return tqiEN.analyze(data,options);
-          break;
-        default:
-          console.log(kuler('Wrong code lang', 'red'));
-          process.exit(1)
-      }
+      const tqiDE = new Tqi(program.lang)
+      return tqiDE.analyze(data,options);
     })
   };
 
