@@ -34,3 +34,6 @@ node_modules
 
 # Ignore IDE's files
 .idea
+
+# Ignore OSX's files
+.DS_Store
