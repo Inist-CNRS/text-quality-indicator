@@ -57,7 +57,6 @@ class Tqi {
       hunspellCmd.on('error', reject);
       hunspellCmd.on('close', (code) => {
         if (code === 0) {
-          // console.log(stdout);
           resolve(stdout.split('\n').filter((item) => item !== ''));
         } else {
           reject(stderr);

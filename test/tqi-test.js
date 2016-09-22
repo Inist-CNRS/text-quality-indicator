@@ -8,7 +8,6 @@ const pkg = require('./../package.json'),
 
 
 const tqi = new Tqi(),
-  enBig = __dirname + '/data/en-big.txt',
   emptyFile = __dirname + '/data/empty-file.txt',
   frSample = __dirname + '/data/fr-sample.txt';
 
@@ -23,7 +22,6 @@ describe(pkg.name + '/src/tqi.js', function () {
   describe('#getCorrectWord', function () {
     it('should return a total of correct word', function () {
       return tqi.getCorrectWord(frSample).then((result) => {
-        // console.log(result);
         expect(result).to.be.an("array");
       })
     })
@@ -40,7 +38,6 @@ describe(pkg.name + '/src/tqi.js', function () {
   describe('#analyze', function () {
     it('should return an object "result"', function () {
       return tqi.analyze(frSample).then((result) => {
-        // console.log(result);
         expect(result).to.have.property("correct");
         expect(result.correct).to.be.a("number");
         expect(result).to.have.property("mispelled");
@@ -52,7 +49,6 @@ describe(pkg.name + '/src/tqi.js', function () {
 
     it('should return an object "result" even with an empty file', function () {
       return tqi.analyze(emptyFile).then((result) => {
-        // console.log(result);
         expect(result).to.have.property("correct");
         expect(result.correct).to.be.a("number");
         expect(result).to.have.property("mispelled");
