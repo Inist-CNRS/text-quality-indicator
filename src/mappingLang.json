@@ -1,0 +1,136 @@
+[
+  {
+    "code": "bg",
+    "lang": "BULGARIAN",
+    "path": [
+      "bg_BG/bg_BG"
+    ]
+  },{
+    "code": "cs",
+    "lang": "CZECH",
+    "path": [
+      "cs_CZ/cs_CZ"
+    ]
+  },{
+    "code": "da",
+    "lang": "DANISH",
+    "path": [
+      "da_DK/da_DK"
+    ]
+  },{
+    "code": "de",
+    "lang": "GERMAN",
+    "path": [
+      "de/de_AT_frami",
+      "de/de_CH_frami",
+      "de/de_DE_frami"
+    ]
+  },{
+    "code": "en",
+    "lang": "ENGLISH",
+    "path": [
+      "en/en_US",
+      "en/en_CA",
+      "en/en_GB"
+    ]
+  },{
+    "code": "es",
+    "lang": "SPANISH",
+    "path": [
+      "es/es_ANY"
+    ]
+  },{
+    "code": "et",
+    "lang": "ESTONIAN",
+    "path": [
+      "et_EE/et_EE"
+    ]
+  },{
+    "code": "fr",
+    "lang": "FRENCH",
+    "path": [
+      "fr_FR/fr"
+    ]
+  },{
+    "code": "hr",
+    "lang": "CROATIAN",
+    "path": [
+      "hr_HR/hr_HR"
+    ]
+  },{
+    "code": "hu",
+    "lang": "HUNGARIAN",
+    "path": [
+      "hu/hu_HU"
+    ]
+  },{
+    "code": "it",
+    "lang": "ITALIAN",
+    "path": [
+      "it_IT/it_IT"
+    ]
+  },{
+    "code": "iw",
+    "lang": "HEBREW",
+    "path": [
+      "he_IL/he_IL"
+    ]
+  },{
+    "code": "lt",
+    "lang": "LITHUANIAN",
+    "path": [
+      "lt_LT/lt"
+    ]
+  },{
+    "code": "nl",
+    "lang": "DUTCH",
+    "path": [
+      "nl_NL/nl_NL"
+    ]
+  },{
+    "code": "no",
+    "lang": "NORWEGIAN",
+    "path": [
+      "no/nb_NO",
+      "nn_NO"
+    ]
+  },{
+    "code": "pl",
+    "lang": "POLISH",
+    "path": [
+      "pl_PL/pl_PL"
+    ]
+  },{
+    "code": "pt",
+    "lang": "PORTUGUESE",
+    "path": [
+      "pt_BR/pt_BR",
+      "pt_PT/pt_PT"
+    ]
+  },{
+    "code": "ro",
+    "lang": "ROMANIAN",
+    "path": [
+      "ro/ro_RO"
+    ]
+  },{
+    "code": "ru",
+    "lang": "RUSSIAN",
+    "path": [
+      "ru_RU/ru_RU"
+    ]
+  },{
+    "code": "sr",
+    "lang": "SERBIAN",
+    "path": [
+      "sr/sr"
+    ]
+  },{
+    "code": "sv",
+    "lang": "SWEDISH",
+    "path": [
+      "sv_SE/sv_SE",
+      "sv_SE/sv_FI"
+    ]
+  }
+]

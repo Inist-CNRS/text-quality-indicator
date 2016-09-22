@@ -1,6 +1,8 @@
 'use strict';
 
-const spawn = require('child_process').spawn;
+const spawn = require('child_process').spawn,
+  mappingLang = require('./mappingLang'),
+  path = require('path');
 
 class Tqi {
   constructor(dict) {
@@ -63,6 +65,27 @@ class Tqi {
         }
       })
     })
+  }
+
+  getHunpsellDictionnaries(codesLang) {
+    return codesLang.map((codeLang) => {
+      const dict = mappingLang.filter((dictLang) => dictLang.code === codeLang);
+      // console.log(dict);
+      if (dict.length) {
+        return dict.map((item) => {
+          return item.path
+        }).reduce((previous, current) => {
+          // Flatten an array of arrays
+          return previous.concat(current)
+        }, []).map((pathDict) => {
+          return path.normalize(__dirname + '/../node_modules/dictionaries/' + pathDict);
+        });
+      } else {
+        return [codeLang];
+      }
+    }).reduce((previous, current) => {
+      return previous.concat(current);
+    }, []);
   }
 }
 
