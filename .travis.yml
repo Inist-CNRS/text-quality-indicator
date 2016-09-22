@@ -5,7 +5,7 @@ node_js:
 
 before_install:
   - sudo apt-get -qq update
-  - sudo apt-get install -y libxml2-dev
+  - sudo apt-get install -y hunspell
 
 notifications:
   slack: 'inist-dpi:53Jp5iUZeRidSGZn0TukMSKo#activity'
