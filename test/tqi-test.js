@@ -65,8 +65,8 @@ describe(pkg.name + '/src/tqi.js', function () {
 
   describe('#spawnCmdHunspell', function () {
     it('should return an object "result"', function () {
-      return tqi.spawnCmdHunspell(['-G', '/home/meja/Dev/Github/text-quality-indicator/test/data/en-sample.txt']).then((result) =>{
-        // console.log(result);
+      return tqi.spawnCmdHunspell(['-G', frSample]).then((result) =>{
+        expect(result).to.be.an("array");
       })
     })
   });
