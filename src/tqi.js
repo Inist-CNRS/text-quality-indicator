@@ -8,7 +8,8 @@ class Tqi {
   constructor(dict) {
     this.dict = [dict];
     if (Array.isArray(dict)) this.dict = dict;
-    if (dict === undefined) this.dict = ['en_US'];
+    if (dict === undefined) this.dict = ['en'];
+    this.dict = this.getHunpsellDictionnaries(this.dict);
   }
 
   analyze(fileTxt) {
