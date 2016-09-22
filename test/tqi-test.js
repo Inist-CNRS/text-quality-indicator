@@ -3,6 +3,7 @@
 const pkg = require('./../package.json'),
   Tqi = require('./../src/tqi'),
   fs = require('fs'),
+  path = require('path'),
   chai = require('chai'),
   expect = chai.expect;
 
@@ -64,6 +65,17 @@ describe(pkg.name + '/src/tqi.js', function () {
       return tqi.spawnCmdHunspell(['-G', frSample]).then((result) =>{
         expect(result).to.be.an("array");
       })
+    })
+  });
+
+  describe('#getHunpsellDictionnaries', function () {
+    it('should return an array with the dictionnaries\'s path', function () {
+      const listDict = tqi.getHunpsellDictionnaries(['en', 'fr', '/path/to/another/dictionnary']);
+      expect(listDict).to.include(path.normalize(__dirname + '/../node_modules/dictionaries/en/en_US'));
+      expect(listDict).to.include(path.normalize(__dirname + '/../node_modules/dictionaries/en/en_CA'));
+      expect(listDict).to.include(path.normalize(__dirname + '/../node_modules/dictionaries/en/en_GB'));
+      expect(listDict).to.include(path.normalize(__dirname + '/../node_modules/dictionaries/fr_FR/fr'));
+      expect(listDict).to.include(path.normalize('/path/to/another/dictionnary'));
     })
   });
 });
