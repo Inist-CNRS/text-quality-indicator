@@ -7,13 +7,11 @@
     "test": "test"
   },
   "dependencies": {
-    "async": "^1.5.2",
     "bluebird": "^3.4.0",
     "commander": "^2.9.0",
     "glob": "^7.0.3",
     "kuler": "0.0.0",
     "napa": "^2.3.0",
-    "natural": "^0.4.0",
     "nodehun": "^2.0.10",
     "prettyjson": "^1.1.3"
   },
