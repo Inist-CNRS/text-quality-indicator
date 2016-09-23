@@ -16,11 +16,19 @@ You could use all languages which are in nodes_modules/dictionnaries or a person
 
 ## How to use it ?
 
+#### Requirements
+Hunspell (version >= 1.3)
+
+```bash
+sudo apt-get install hunspell
+```
+
 #### Using our module in your project :
+```bash
+npm install --save text-quality-indicator
+```
 
 ```javascript
-npm install --save text-quality-indicator
-
 // Load NPM Module
 const Tqi = require('text-quality-indicator'),
     tqi = new Tqi();
