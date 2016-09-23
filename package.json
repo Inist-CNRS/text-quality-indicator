@@ -22,6 +22,9 @@
     "install": "napa http://github.com/LibreOffice/dictionaries",
     "test": "mocha"
   },
+  "bin": {
+    "tqi": "bin/cli.js"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Inist-CNRS/text-quality-indicator.git"
