@@ -23,10 +23,11 @@ fs.statAsync(program.args[0]).catch((err) => {
   process.exit(1);
 }).then((stats) => {
   const tqi = new Tqi(program.dict);
-
+  const options = { wordsResult : program.words };
+  console.log(options);
   if (stats.isFile()) {
     const input = path.resolve(program.args[0]);
-    tqi.analyze(input).then((result) => {
+    tqi.analyze(input, options).then((result) => {
       console.log(path.basename(input), "=>", result);
     })
   } else if (stats.isDirectory()) {
@@ -35,7 +36,7 @@ fs.statAsync(program.args[0]).catch((err) => {
       arrayFiles = glob.sync(input);
 
     arrayFiles.map((file) => {
-      tqi.analyze(file).then((result) => {
+      tqi.analyze(file, options).then((result) => {
         total.correct += result.correct;
         total.mispelled += result.mispelled;
         console.log(path.basename(file), "=>", result);
