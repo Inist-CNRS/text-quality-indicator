@@ -3,8 +3,6 @@
 # Text Quality Indicator
 Return a indicator (in %) of any text, using dictionnary.
 
-*( Warning : This documentation is outdated ! )*
-
 ## The aim
 TQI is a node.js written module which get any text data and return you a number regarding the quality of it.
 
@@ -12,9 +10,9 @@ TQI is a node.js written module which get any text data and return you a number 
 TQI compares your text to a list of words comming from large affix dictionnaries in some languages.
 
 ## Which languages do TQI support ?
-There are currently ENGLISH/SPANISH/FRENCH/GERMAN/DUTCH/NORWEGIAN/PORTUGUESE.
+TQI supports all languages present in the list of dictionaries for Hunspell. 
 
-You could use all languages which are in nodes_modules/dictionnaries but you need to add tokenization reGEX into src/mapping.js
+You could use all languages which are in nodes_modules/dictionnaries or a personnel dictionnary.
 
 ## How to use it ?
 
@@ -24,46 +22,38 @@ You could use all languages which are in nodes_modules/dictionnaries but you nee
 npm install --save text-quality-indicator
 
 // Load NPM Module
-var Tqi = require('text-quality-indicator'),
+const Tqi = require('text-quality-indicator'),
     tqi = new Tqi();
 
-// Words found/rest are sent by default
-var options = {words: true}
+// correct/mispelled words are disable by default. To activate it : 
+const options = { wordsResult: true }
 
-// But you can disable it
-options =  {words: false}
-
-// Analyze a string
-tqi.analyze("Some english words",options).then((result) => {
+// Analyze a file
+tqi.analyze(file.txt, options).then((result) => {
   console.log("result : ", result);
 }
 
 // Will return you :
-{ valid: 3,
-  error: 0,
+{ correct: 3,
+  mispelled: 0,
   rate: 100,
-  words: { found: [ 'somme', 'english', 'words' ], rest: [] } 
+  words: { correct: [ 'somme', 'english', 'words' ], mispelled: [] } 
 }
 ```
 
-INFO : API method will always return you found/rest words, not CLI programm (use option -w) 
 
+When you init TQI you can send an array of langage's code, a path to a personnal dictionnary or a mix of both:
 
-When you init TQI you can send 3 arguments:
-
-```
-  var Tqi = require('text-quality-indicator'),
+```javascript
+const Tqi = require('text-quality-indicator'),
       tqi = new Tqi("en"),
-      tqi2 = new Tqi(null, .dicPath, .affPath);
+      tqiEnFr = new Tqi(["en", "fr"]);
+      tqiEnFrAndMyDictionnary = new Tqi(["en", "fr", "/path/to/my/dictionnary"]);
 ```
-
-First argument is the "code Lang" used to tokenize words & load default dictionaries, but you can overwritte them with second & third arguments.
-
 
 
 #### Using our CLI programm
-
-```
+```bash
 npm install -g text-quality-indicator
 tqi --help
 ```
@@ -74,19 +64,19 @@ tqi --help
 
   ```bash
     cat ./test/data/fr-sample.txt
-    -> Un chien , un chat , des chatons , ils mangent weekend
+    -> En se réveillant un matin après des rêves agités, Gregor Samsa se retrouva, dans son lit, métamorphosé en un monstrueux insecte.
   ```
   
   Lauch TQI with fr lang option :
   
   ```bash
-    tqi -l fr ./test/data/fr-sample.txt 
+    tqi -d fr ./test/data/fr-sample.txt 
   ```
   
   Will return you:
   
   ```bash
-    ./test/data/fr-sample.txt => { valid: 8, error: 1, rate: 88.88888888888889 }
+    fr-sample.txt => { correct: 20, mispelled: 1, rate: 95.23809523809523 }
   ```
 
 - On an english folder containing txts :
@@ -96,8 +86,8 @@ tqi --help
   ```
   English is the default lang used.
 
-You can ask cli to send back you the found/rest words :
+You can ask cli to send back you the corect/mispelled words :
 
 ```bash
-./bin/cli.js -w true ./pathToTxt.txt
+./bin/cli.js -w ./pathToTxt.txt
 ```
