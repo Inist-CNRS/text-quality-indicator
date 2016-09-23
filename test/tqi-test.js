@@ -57,6 +57,20 @@ describe(pkg.name + '/src/tqi.js', function () {
         expect(result).to.have.property("rate");
         expect(result.rate).to.be.a("number");
       })
+    });
+
+    it('should return an object "result" with the words correct and mispelled', function () {
+      return tqi.analyze(frSample, {wordsResult:true}).then((result) => {
+        expect(result).to.have.property("correct");
+        expect(result.correct).to.be.a("number");
+        expect(result).to.have.property("mispelled");
+        expect(result.mispelled).to.be.a("number");
+        expect(result).to.have.property("rate");
+        expect(result.rate).to.be.a("number");
+        expect(result).to.have.property("words");
+        expect(result.words.correct).to.be.an('array');
+        expect(result.words.mispelled).to.be.an('array');
+      })
     })
   });
 

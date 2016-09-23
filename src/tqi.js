@@ -12,7 +12,7 @@ class Tqi {
     this.dict = this.getHunpsellDictionnaries(this.dict);
   }
 
-  analyze(fileTxt) {
+  analyze(fileTxt, options) {
     const result = {
       correct: 0,
       mispelled: 0,
@@ -22,6 +22,7 @@ class Tqi {
         mispelled: []
       }
     };
+    options = options || {wordsResult: false};
 
     return this.getCorrectWord(fileTxt).then((correctWords) => {
       result.correct = correctWords.length;
@@ -33,6 +34,9 @@ class Tqi {
       const totalWords = result.correct + result.mispelled;
       if (totalWords !== 0) {
         result.rate = result.correct / totalWords * 100;
+      }
+      if (!options.wordsResult) {
+        delete result.words;
       }
       return result;
     })
