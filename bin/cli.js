@@ -34,12 +34,14 @@ fs.statAsync(program.args[0]).catch((err) => {
       input = path.resolve(program.args[0], "**/*.txt"),
       arrayFiles = glob.sync(input);
 
-    arrayFiles.map((file) => {
-      tqi.analyze(file, options).then((result) => {
+    bluebird.map(arrayFiles, (file) => {
+      return tqi.analyze(file, options).then((result) => {
         total.correct += result.correct;
         total.mispelled += result.mispelled;
         console.log(path.basename(file), "=>", result);
       });
+    }).then(() => {
+      console.log("total =>", total);
     })
   } else {
     console.log('what are you trying to do ?');
