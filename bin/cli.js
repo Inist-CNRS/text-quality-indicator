@@ -23,8 +23,7 @@ fs.statAsync(program.args[0]).catch((err) => {
   process.exit(1);
 }).then((stats) => {
   const tqi = new Tqi(program.dict);
-  const options = { wordsResult : program.words };
-  console.log(options);
+  const options = { wordsResult : program.words !== undefined };
   if (stats.isFile()) {
     const input = path.resolve(program.args[0]);
     tqi.analyze(input, options).then((result) => {
