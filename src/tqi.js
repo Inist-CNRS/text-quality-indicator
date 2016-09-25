@@ -1,6 +1,7 @@
 'use strict';
 
 const spawn = require('child_process').spawn,
+  exec = require('child_process').exec,
   mappingLang = require('./mappingLang'),
   path = require('path');
 
@@ -44,13 +45,13 @@ class Tqi {
 
   getCorrectWord(fileTxt) {
     const dict = this.dict.join(',');
-    const cmd = ['-G', '-d ' + dict, fileTxt];
+    const cmd = ['-G', '-d', dict, fileTxt];
     return this.spawnCmdHunspell(cmd)
   }
 
   getMispelledWord(fileTxt) {
     const dict = this.dict.join(',');
-    const cmd = ['-l', '-d ' + dict, fileTxt];
+    const cmd = ['-l', '-d', dict, fileTxt];
     return this.spawnCmdHunspell(cmd)
   }
 
