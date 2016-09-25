@@ -22,13 +22,14 @@ fs.statAsync(program.args[0]).catch((err) => {
   console.log(kuler('Input file/folder doesn\'t exist', 'red'));
   process.exit(1);
 }).then((stats) => {
-  const tqi = new Tqi(program.dict);
+  const dict = program.dict.split(',');
+  const tqi = new Tqi(dict);
   const options = { wordsResult : program.words !== undefined };
   if (stats.isFile()) {
     const input = path.resolve(program.args[0]);
-    tqi.analyze(input, options).then((result) => {
-      console.log(path.basename(input), "=>", result);
-    })
+    tqi.analyze(input, options)
+      .then((result) => console.log(path.basename(input), "=>", result))
+      .catch((error) => console.log(error))
   } else if (stats.isDirectory()) {
     const total = {correct: 0, mispelled: 0, rate: 0},
       input = path.resolve(program.args[0], "**/*.txt"),
