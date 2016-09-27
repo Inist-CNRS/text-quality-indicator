@@ -1,7 +1,6 @@
 'use strict';
 
 const spawn = require('child_process').spawn,
-  exec = require('child_process').exec,
   mappingLang = require('./mappingLang'),
   path = require('path');
 

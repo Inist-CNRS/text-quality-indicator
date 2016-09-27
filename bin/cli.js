@@ -18,7 +18,7 @@ program
   .option('-w, --words', 'If true, will show list of correct/misspelled words (disable by default)')
   .parse(process.argv);
 
-fs.statAsync(program.args[0]).catch((err) => {
+fs.statAsync(program.args[0]).catch(() => {
   console.log(kuler('Input file/folder doesn\'t exist', 'red'));
   process.exit(1);
 }).then((stats) => {
