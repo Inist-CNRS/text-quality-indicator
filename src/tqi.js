@@ -16,11 +16,11 @@ class Tqi {
   analyze(fileTxt, options) {
     const result = {
       correct: 0,
-      mispelled: 0,
+      misspelled: 0,
       rate: 0,
       words: {
         correct: [],
-        mispelled: []
+        misspelled: []
       }
     };
     options = options || {wordsResult: false};
@@ -28,11 +28,11 @@ class Tqi {
     return this.getCorrectWord(fileTxt).then((correctWords) => {
       result.correct = correctWords.length;
       result.words.correct = correctWords;
-      return this.getMispelledWord(fileTxt)
-    }).then((mispelledWords) => {
-      result.mispelled = mispelledWords.length;
-      result.words.mispelled = mispelledWords;
-      const totalWords = result.correct + result.mispelled;
+      return this.getmisspelledWord(fileTxt)
+    }).then((misspelledWords) => {
+      result.misspelled = misspelledWords.length;
+      result.words.misspelled = misspelledWords;
+      const totalWords = result.correct + result.misspelled;
       if (totalWords !== 0) {
         result.rate = result.correct / totalWords * 100;
       }
@@ -49,7 +49,7 @@ class Tqi {
     return this.spawnCmdHunspell(cmd)
   }
 
-  getMispelledWord(fileTxt) {
+  getmisspelledWord(fileTxt) {
     const dict = this.dict.join(',');
     const cmd = ['-l', '-d', dict, fileTxt];
     return this.spawnCmdHunspell(cmd)

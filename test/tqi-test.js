@@ -28,9 +28,9 @@ describe(pkg.name + '/src/tqi.js', function () {
     })
   });
 
-  describe('#getMispelledWord', function () {
-    it('should return a total of mispelled word', function () {
-      return tqi.getMispelledWord(frSample).then((result) => {
+  describe('#getmisspelledWord', function () {
+    it('should return a total of misspelled word', function () {
+      return tqi.getmisspelledWord(frSample).then((result) => {
         expect(result).to.be.an("array");
       })
     })
@@ -41,8 +41,8 @@ describe(pkg.name + '/src/tqi.js', function () {
       return tqi.analyze(frSample).then((result) => {
         expect(result).to.have.property("correct");
         expect(result.correct).to.be.a("number");
-        expect(result).to.have.property("mispelled");
-        expect(result.mispelled).to.be.a("number");
+        expect(result).to.have.property("misspelled");
+        expect(result.misspelled).to.be.a("number");
         expect(result).to.have.property("rate");
         expect(result.rate).to.be.a("number");
       })
@@ -52,24 +52,24 @@ describe(pkg.name + '/src/tqi.js', function () {
       return tqi.analyze(emptyFile).then((result) => {
         expect(result).to.have.property("correct");
         expect(result.correct).to.be.a("number");
-        expect(result).to.have.property("mispelled");
-        expect(result.mispelled).to.be.a("number");
+        expect(result).to.have.property("misspelled");
+        expect(result.misspelled).to.be.a("number");
         expect(result).to.have.property("rate");
         expect(result.rate).to.be.a("number");
       })
     });
 
-    it('should return an object "result" with the words correct and mispelled', function () {
+    it('should return an object "result" with the words correct and misspelled', function () {
       return tqi.analyze(frSample, {wordsResult:true}).then((result) => {
         expect(result).to.have.property("correct");
         expect(result.correct).to.be.a("number");
-        expect(result).to.have.property("mispelled");
-        expect(result.mispelled).to.be.a("number");
+        expect(result).to.have.property("misspelled");
+        expect(result.misspelled).to.be.a("number");
         expect(result).to.have.property("rate");
         expect(result.rate).to.be.a("number");
         expect(result).to.have.property("words");
         expect(result.words.correct).to.be.an('array');
-        expect(result.words.mispelled).to.be.an('array');
+        expect(result.words.misspelled).to.be.an('array');
       })
     })
   });

@@ -15,7 +15,7 @@ program
   .version(pkg.version)
   .usage('[options] <file.txt>')
   .option('-d, --dict <en>', 'Choose a dictonnary with a langage\'s code (en, de ou fr) or a path to your dictionnary (en by default)', 'en')
-  .option('-w, --words', 'If true, will show list of correct/mispelled words (disable by default)')
+  .option('-w, --words', 'If true, will show list of correct/misspelled words (disable by default)')
   .parse(process.argv);
 
 fs.statAsync(program.args[0]).catch((err) => {
@@ -31,14 +31,14 @@ fs.statAsync(program.args[0]).catch((err) => {
       .then((result) => console.log(path.basename(input), "=>", result))
       .catch((error) => console.log(error))
   } else if (stats.isDirectory()) {
-    const total = {correct: 0, mispelled: 0, rate: 0},
+    const total = {correct: 0, misspelled: 0, rate: 0},
       input = path.resolve(program.args[0], "**/*.txt"),
       arrayFiles = glob.sync(input);
 
     bluebird.map(arrayFiles, (file) => {
       return tqi.analyze(file, options).then((result) => {
         total.correct += result.correct;
-        total.mispelled += result.mispelled;
+        total.misspelled += result.misspelled;
         console.log(path.basename(file), "=>", result);
       });
     }).then(() => {

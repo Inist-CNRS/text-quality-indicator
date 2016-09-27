@@ -43,7 +43,7 @@ tqi.analyze(file.txt, options).then((result) => {
 
 // Will return you :
 { correct: 3,
-  mispelled: 0,
+  misspelled: 0,
   rate: 100,
   words: { correct: [ 'somme', 'english', 'words' ], mispelled: [] } 
 }
