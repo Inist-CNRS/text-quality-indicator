@@ -75,7 +75,6 @@ class Tqi {
   getHunpsellDictionnaries(codesLang) {
     return codesLang.map((codeLang) => {
       const dict = mappingLang.filter((dictLang) => dictLang.code === codeLang);
-      // console.log(dict);
       if (dict.length) {
         return dict.map((item) => {
           return item.path

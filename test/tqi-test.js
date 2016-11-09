@@ -73,10 +73,10 @@ describe(pkg.name + '/src/tqi.js', function () {
       })
     })
   });
-
+  // TODO ajouter le dictionnaire FR pour le test
   describe('#spawnCmdHunspell', function () {
     it('should return an object "result"', function () {
-      return tqi.spawnCmdHunspell(['-G', frSample]).then((result) =>{
+      return tqi.spawnCmdHunspell(['-d', __dirname + '/../node_modules/dictionaries/fr_FR/fr', '-G', frSample]).then((result) =>{
         expect(result).to.be.an("array");
       })
     })
