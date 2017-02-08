@@ -59,8 +59,8 @@ class Tqi {
       const hunspellCmd = spawn('hunspell', args);
       let stdout = '';
       let stderr = '';
-      hunspellCmd.stdout.on('data', (data) => stdout = data.toString());
-      hunspellCmd.stderr.on('data', (data) => stderr = data.toString());
+      hunspellCmd.stdout.on('data', (data) => stdout += data.toString());
+      hunspellCmd.stderr.on('data', (data) => stderr += data.toString());
       hunspellCmd.on('error', reject);
       hunspellCmd.on('close', (code) => {
         if (code === 0) {
