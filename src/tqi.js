@@ -2,6 +2,9 @@
 
 const spawn = require('child_process').spawn,
   mappingLang = require('./mappingLang'),
+  Promise = require('bluebird'),
+  fs = Promise.promisifyAll(require('fs')),
+  xregexp = require('xregexp'),
   path = require('path');
 
 class Tqi {
@@ -24,21 +27,31 @@ class Tqi {
     };
     options = options || {wordsResult: false};
 
-    return this.getCorrectWord(fileTxt).then((correctWords) => {
-      result.correct = correctWords.length;
-      result.words.correct = correctWords;
-      return this.getmisspelledWord(fileTxt)
-    }).then((misspelledWords) => {
-      result.misspelled = misspelledWords.length;
-      result.words.misspelled = misspelledWords;
-      const totalWords = result.correct + result.misspelled;
-      if (totalWords !== 0) {
-        result.rate = result.correct / totalWords * 100;
+    return Promise.join(
+      this.getCorrectWord(fileTxt),
+      this.getmisspelledWord(fileTxt),
+      this.getTotalToken(fileTxt),
+      (correctWords, misspelledWords, totalToken) => {
+        result.correct = correctWords.length;
+        result.words.correct = correctWords;
+        result.misspelled = misspelledWords.length;
+        result.words.misspelled = misspelledWords;
+        result.totalToken = totalToken;
+        const totalWords = result.correct + result.misspelled;
+        if (totalWords !== 0) result.rate = result.correct / totalWords * 100;
+        if (!options.wordsResult) delete result.words;
+        return result;
       }
-      if (!options.wordsResult) {
-        delete result.words;
-      }
-      return result;
+    );
+  }
+
+  getTotalToken(fileTxt) {
+    return fs.readFileAsync(fileTxt, 'utf8').then((content) => {
+      const unicodePunctuation = xregexp("\\p{P}+");
+      return xregexp.replace(content, unicodePunctuation, ' ', 'all')
+        .split(/\s+/)
+        .filter((token) => token !== '')
+        .length
     })
   }
 
@@ -59,10 +72,14 @@ class Tqi {
       const hunspellCmd = spawn('hunspell', args);
       let stdout = '';
       let stderr = '';
-      hunspellCmd.stdout.on('data', (data) => stdout += data.toString());
+      hunspellCmd.stdout.on('data', (data) => {
+        // console.log(data.toString())
+        stdout += data.toString()
+      });
       hunspellCmd.stderr.on('data', (data) => stderr += data.toString());
       hunspellCmd.on('error', reject);
       hunspellCmd.on('close', (code) => {
+        // if (args[0] === '-G') fs.writeFileSync('output.txt', stdout);
         if (code === 0) {
           resolve(stdout.split('\n').filter((item) => item !== ''));
         } else {

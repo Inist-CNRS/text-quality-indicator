@@ -10,7 +10,8 @@ const pkg = require('./../package.json'),
 
 const tqi = new Tqi(),
   emptyFile = __dirname + '/data/empty-file.txt',
-  frSample = __dirname + '/data/fr-sample.txt';
+  frSample = __dirname + '/data/fr-sample.txt',
+  enSample = __dirname + '/data/en-sample.txt';
 
 
 describe(pkg.name + '/src/tqi.js', function () {
@@ -32,6 +33,22 @@ describe(pkg.name + '/src/tqi.js', function () {
     it('should return a total of misspelled word', function () {
       return tqi.getmisspelledWord(frSample).then((result) => {
         expect(result).to.be.an("array");
+      })
+    })
+  });
+
+  describe('#getTotalToken', function () {
+    it('should return total of token from a french text', function () {
+      return tqi.getTotalToken(frSample).then((result) => {
+        expect(result).to.be.a("number");
+        expect(result).to.above(200);
+      })
+    });
+
+    it('should return total of token from an english text', function () {
+      return tqi.getTotalToken(enSample).then((result) => {
+        expect(result).to.be.a("number");
+        expect(result).to.above(200)
       })
     })
   });

@@ -1,13 +1,3 @@
-Barnett et al. [1997] examined relationships between a preference for violent games and several personality characteristics. They surveyed 229 individuals aged 15 through 19 years, asking
-them to list their five most favorite games. When the most favorite game was rated violent by a
-male graduate student, there was an association with lower scores on a measure of trait empathy.
-The pattern of partial correlations suggested possible additional relationships with lower selfesteem, less conscientiousness, and relative introversion [Barnett et al., 1997].
-Recent research suggests that adult content perceptions may differ from child perceptions,
-and therefore it seems important to specifically examine children’s content evaluations [Funk et
-al., 1999b; Gunter, 1994]. Funk et al. [1998] conducted a survey of 52 sixth graders who listed
-and categorized up to three favorite electronic games and completed questionnaires measuring
-empathy [Bryant, 1982] and attitudes toward violence [Funk et al., 1999a]. The effect of preference for violent games on empathy score approached significance (P = .07) and the interaction
-between time spent and preference for violent games on attitudes toward violence was in the
-direction of a small effect. These results, considered with those of Barnett et al. [1997], suggest
-that the relationship between a preference for violent games, empathy, and attitudes toward
-violence bears further investigation.
+One morning, when Gregor Samsa woke from troubled dreams, he found himself transformed in his bed into a horrible vermin. He lay on his armour-like back, and if he lifted his head a little he could see his brown belly, slightly domed and divided by arches into stiff sections. The bedding was hardly able to cover it and seemed ready to slide off any moment.
+
+His many legs, pitifully thin compared with the size of the rest of him, waved about helplessly as he looked. "What's happened to me? " he thought. It wasn't a dream. His room, a proper human room although a little too small, lay peacefully between its four familiar walls. A collection of textile samples lay spread out on the table - Samsa was a travelling salesman - and above it there hung a picture that he had recently cut out of an illustrated magazine and housed in a nice, gilded frame. It showed a lady fitted out with a fur hat and fur boa who sat upright, raising a heavy fur muff that covered the whole of her lower arm towards the viewer. Gregor then turned to look out the window at the dull weather. Drops 
