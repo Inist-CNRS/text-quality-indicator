@@ -25,6 +25,7 @@ describe(pkg.name + '/src/tqi.js', function () {
     it('should return a total of correct word', function () {
       return tqi.getCorrectWord(frSample).then((result) => {
         expect(result).to.be.an("array");
+        expect(result.length).to.be.above(70)
       })
     })
   });
@@ -33,6 +34,7 @@ describe(pkg.name + '/src/tqi.js', function () {
     it('should return a total of misspelled word', function () {
       return tqi.getmisspelledWord(frSample).then((result) => {
         expect(result).to.be.an("array");
+        expect(result.length).to.be.below(150)
       })
     })
   });
@@ -41,14 +43,14 @@ describe(pkg.name + '/src/tqi.js', function () {
     it('should return total of token from a french text', function () {
       return tqi.getTotalToken(frSample).then((result) => {
         expect(result).to.be.a("number");
-        expect(result).to.above(200);
+        expect(result).to.be.above(200);
       })
     });
 
     it('should return total of token from an english text', function () {
       return tqi.getTotalToken(enSample).then((result) => {
         expect(result).to.be.a("number");
-        expect(result).to.above(200)
+        expect(result).to.be.above(200)
       })
     })
   });
