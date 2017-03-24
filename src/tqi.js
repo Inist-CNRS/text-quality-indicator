@@ -41,7 +41,7 @@ class Tqi {
         if (totalWords !== 0) {
           const quantity = 1 - (1 / Math.log10(totalToken + 10));
           const coverDictionnary = result.correct / totalWords;
-          result.rate = 2 * quantity * coverDictionnary / (quantity + coverDictionnary);
+          result.rate = 2 * 100 * quantity * coverDictionnary / (quantity + coverDictionnary);
         }
         if (!options.wordsResult) delete result.words;
         return result;
