@@ -17,7 +17,7 @@
   },
   "devDependencies": {
     "chai": "^3.5.0",
-    "mocha": "^2.5.2"
+    "mocha": "^3.2.0"
   },
   "scripts": {
     "install": "napa http://github.com/LibreOffice/dictionaries",
