@@ -20,7 +20,7 @@
     "mocha": "^3.2.0"
   },
   "scripts": {
-    "install": "napa http://github.com/LibreOffice/dictionaries",
+    "install": "napa https://github.com/LibreOffice/dictionaries",
     "test": "mocha"
   },
   "bin": {
