@@ -7,17 +7,17 @@
     "test": "test"
   },
   "dependencies": {
-    "bluebird": "^3.4.7",
-    "commander": "^2.9.0",
-    "glob": "^7.0.3",
-    "kuler": "0.0.0",
-    "napa": "^2.3.0",
-    "prettyjson": "^1.1.3",
-    "xregexp": "^3.1.1"
+    "bluebird": "^3.5.5",
+    "commander": "^2.20.0",
+    "glob": "^7.1.4",
+    "kuler": "2.0.0",
+    "napa": "^3.0.0",
+    "prettyjson": "^1.2.1",
+    "xregexp": "^4.2.4"
   },
   "devDependencies": {
-    "chai": "^3.5.0",
-    "mocha": "^3.2.0"
+    "chai": "^4.2.0",
+    "mocha": "^6.1.4"
   },
   "scripts": {
     "install": "napa https://github.com/LibreOffice/dictionaries",
