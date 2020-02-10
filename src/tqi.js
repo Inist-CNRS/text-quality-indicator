@@ -106,7 +106,15 @@ class Tqi {
           return path.normalize(__dirname + '/../node_modules/dictionaries/' + pathDict);
         });
       } else {
-        return [codeLang];
+        let dictPath = codeLang;
+        if (!dictPath.endsWith('.dic')) dictPath += '.dic';
+        try {
+          fs.accessSync(dictPath, fs.constants.R_OK) ;
+          return [codeLang];
+        } catch (e) {
+          return [];
+        }
+
       }
     }).reduce((previous, current) => {
       return previous.concat(current);

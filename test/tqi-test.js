@@ -103,12 +103,14 @@ describe(pkg.name + '/src/tqi.js', function () {
 
   describe('#getHunpsellDictionnaries', function () {
     it('should return an array with the dictionnaries\'s path', function () {
-      const listDict = tqi.getHunpsellDictionnaries(['en', 'fr', '/path/to/another/dictionnary']);
+      const anotherDictionnary = path.join(__dirname,"data/another-dictionnary");
+      const listDict = tqi.getHunpsellDictionnaries(['en', 'fr', '/path/to/another/dictionnary',anotherDictionnary]);
       expect(listDict).to.include(path.normalize(__dirname + '/../node_modules/dictionaries/en/en_US'));
       expect(listDict).to.include(path.normalize(__dirname + '/../node_modules/dictionaries/en/en_CA'));
       expect(listDict).to.include(path.normalize(__dirname + '/../node_modules/dictionaries/en/en_GB'));
       expect(listDict).to.include(path.normalize(__dirname + '/../node_modules/dictionaries/fr_FR/fr'));
-      expect(listDict).to.include(path.normalize('/path/to/another/dictionnary'));
+      expect(listDict).to.not.include(path.normalize('/path/to/another/dictionnary'));
+      expect(listDict).to.include(path.normalize(anotherDictionnary));
     })
   });
 });
