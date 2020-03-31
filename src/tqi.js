@@ -13,6 +13,7 @@ class Tqi {
     if (Array.isArray(dict)) this.dict = dict;
     if (dict === undefined) this.dict = ['en'];
     this.dict = this.getHunpsellDictionnaries(this.dict);
+    if (!this.dict || this.dict===[]) this.dict = ['en'];
   }
 
   analyze(fileTxt, options) {
