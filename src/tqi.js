@@ -5,7 +5,8 @@ const spawn = require('child_process').spawn,
   Promise = require('bluebird'),
   fs = Promise.promisifyAll(require('fs')),
   xregexp = require('xregexp'),
-  path = require('path');
+  path = require('path'),
+  options={wordsResult: false, timeout: 5};
 
 class Tqi {
   constructor(dict) {
@@ -16,7 +17,7 @@ class Tqi {
     if (!this.dict || this.dict===[]) this.dict = ['en'];
   }
 
-  analyze(fileTxt, options) {
+  analyze(fileTxt, opts) {
     const result = {
       correct: 0,
       misspelled: 0,
@@ -26,7 +27,8 @@ class Tqi {
         misspelled: []
       }
     };
-    options = options || {wordsResult: false};
+    if (opts && opts.wordsResult) options.wordsResult = opts.wordsResult;
+    if (opts && opts.timeout) options.timeout = opts.timeout;
 
     return Promise.join(
       this.getCorrectWord(fileTxt),
@@ -74,7 +76,7 @@ class Tqi {
 
   spawnCmdHunspell(args) {
     return new Promise((resolve, reject) => {
-      const hunspellCmd = spawn('hunspell', args);
+      const hunspellCmd = spawn('timeout',[options.timeout+'s','hunspell'].concat(args));
       let stdout = '';
       let stderr = '';
       hunspellCmd.stdout.on('data', (data) => {
@@ -87,6 +89,8 @@ class Tqi {
         // if (args[0] === '-G') fs.writeFileSync('output.txt', stdout);
         if (code === 0) {
           resolve(stdout.split('\n').filter((item) => item !== ''));
+        } if (code === 124) {
+          reject("Hunspell timeout, it can't finish to spell check "+args[args.length -1]);
         } else {
           reject(stderr);
         }

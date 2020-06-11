@@ -35,7 +35,8 @@ const Tqi = require('text-quality-indicator'),
     tqi = new Tqi();
 
 // correct/mispelled words are disable by default. To activate it : 
-const options = { wordsResult: true }
+// you can also set a custom timeout for hunspell calls (default to 5 sec)
+const options = { wordsResult: true, timeout: 5 }
 
 // Analyze a file
 tqi.analyze(file.txt, options).then((result) => {
