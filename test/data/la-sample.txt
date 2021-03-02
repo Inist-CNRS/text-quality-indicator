@@ -1,0 +1,7 @@
+Unde elucet, illud D, quod est in media periodo, esse divisorem numeri A,
+si est impar; numeri 2 A, si est par. Jam quum neque numerus primus p
+formae 4n-j-3 neque ejus duplum possint in formam J2~[-/)2 redigi, necesse
+est ut quotientes radicis ^p vel f p habeant terminum medium, atque medium
+D sit aut =2 aut —p. Sed quum p sit >2« et D oporteat esse <C20>
+concluditur D esse =2 9 atque hinc, ae'quationem ΧΊ — Ayi = ±2 solubilem
+esse, si A est numerus primus 4tt-j-3 simplex vel duplex. Signum intelligendum est superius, si n est impar, inferius, si i» est par; id quod, omissis

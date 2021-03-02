@@ -11,7 +11,8 @@ const pkg = require('./../package.json'),
 const tqi = new Tqi(),
   emptyFile = __dirname + '/data/empty-file.txt',
   frSample = __dirname + '/data/fr-sample.txt',
-  enSample = __dirname + '/data/en-sample.txt';
+  enSample = __dirname + '/data/en-sample.txt',
+  laSample = __dirname + '/data/la-sample.txt';
 
 
 describe(pkg.name + '/src/tqi.js', function () {
@@ -57,7 +58,7 @@ describe(pkg.name + '/src/tqi.js', function () {
 
   describe('#analyze', function () {
     it('should return an object "result"', function () {
-      return tqi.analyze(frSample).then((result) => {
+      return tqi.analyze(frSample, {wordsResult:true}).then((result) => {
         expect(result).to.have.property("correct");
         expect(result.correct).to.be.a("number");
         expect(result).to.have.property("misspelled");
@@ -91,7 +92,38 @@ describe(pkg.name + '/src/tqi.js', function () {
         expect(result.words.misspelled).to.be.an('array');
       })
     })
+    
+    it('should return an object "result" with some good metrics for an english text with a latin dictionnary', function () {
+      const latinTqi = new Tqi("./lib/dictionnaries/la/la");
+      return latinTqi.analyze(enSample).then((result) => {
+        expect(result).to.have.property("correct");
+        expect(result.correct).to.be.a("number");
+        expect(result).to.have.property("misspelled");
+        expect(result.misspelled).to.be.a("number");
+        expect(result).to.have.property("rate").to.be.lessThan(60);      
+        expect(result).to.have.property("rate");
+        expect(result.rate).to.be.a("number");
+      });
+    });
+
+    it('should return an object "result" with some good metrics for a latin text with a latin dictionnary', function () {
+      const latinTqi = new Tqi("./lib/dictionnaries/la/la");
+      
+      return latinTqi.analyze(laSample).then((result) => {
+        expect(result).to.have.property("correct");
+        expect(result.correct).to.be.a("number");
+        expect(result).to.have.property("misspelled");
+        expect(result.misspelled).to.be.a("number");
+        expect(result).to.have.property("rate").to.be.greaterThan(60);      
+        expect(result).to.have.property("rate");
+        expect(result.rate).to.be.a("number");
+      })
+    });
+
   });
+
+
+
   // TODO ajouter le dictionnaire FR pour le test
   describe('#spawnCmdHunspell', function () {
     it('should return an object "result"', function () {
@@ -104,7 +136,8 @@ describe(pkg.name + '/src/tqi.js', function () {
   describe('#getHunpsellDictionnaries', function () {
     it('should return an array with the dictionnaries\'s path', function () {
       const anotherDictionnary = path.join(__dirname,"data/another-dictionnary");
-      const listDict = tqi.getHunpsellDictionnaries(['en', 'fr', '/path/to/another/dictionnary',anotherDictionnary]);
+      const anotherOtherDictionnary = "./lib/dictionnaries/la/la";
+      const listDict = tqi.getHunpsellDictionnaries(['en', 'fr', '/path/to/another/dictionnary',anotherDictionnary,anotherOtherDictionnary]);
       expect(listDict).to.include(path.normalize(__dirname + '/../node_modules/dictionaries/en/en_US'));
       expect(listDict).to.include(path.normalize(__dirname + '/../node_modules/dictionaries/en/en_CA'));
       expect(listDict).to.include(path.normalize(__dirname + '/../node_modules/dictionaries/en/en_GB'));

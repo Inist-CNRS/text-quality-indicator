@@ -108,7 +108,9 @@ class Tqi {
           // Flatten an array of arrays
           return previous.concat(current)
         }, []).map((pathDict) => {
-          return path.normalize(__dirname + '/../node_modules/dictionaries/' + pathDict);
+          let goodDictionnaryPath = path.normalize(__dirname + '/../node_modules/dictionaries/' + pathDict);
+          if (pathDict.indexOf('./')===0) goodDictionnaryPath = path.normalize(path.join(__dirname,pathDict));
+          return goodDictionnaryPath;
         });
       } else {
         let dictPath = codeLang;
