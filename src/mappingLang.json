@@ -95,6 +95,12 @@
       "nn_NO"
     ]
   },{
+    "code": "nn",
+    "lang": "NORWEGIAN_N",
+    "path": [
+      "no/nn_NO"
+    ]
+  },{
     "code": "pl",
     "lang": "POLISH",
     "path": [
@@ -131,6 +137,43 @@
     "path": [
       "sv_SE/sv_SE",
       "sv_SE/sv_FI"
+    ]
+  },{
+    "code": "sk",
+    "lang": "SLOVAK",
+    "path": [
+      "sk_SK/sk_SK"
+    ]
+  },{
+    "code": "bs",
+    "lang": "BOSNIAN",
+    "path": [
+      "bs_BA/bs_BA"
+    ]
+  },{
+    "code": "ca",
+    "lang": "CATALAN",
+    "path": [
+      "ca/dictionnaries/ca",
+      "ca/dictionnaries/ca-valencia"
+    ]
+  },{
+    "code": "gl",
+    "lang": "GALICIAN",
+    "path": [
+      "gl/gl_ES"
+    ]
+  },{
+    "code": "el",
+    "lang": "GREEK",
+    "path": [
+      "el_GR/el_GR"
+    ]
+  },{
+    "code": "la",
+    "lang": "LATIN",
+    "path": [
+      "./lib/dictionnaries/la/la"
     ]
   }
 ]
