@@ -11,8 +11,8 @@
     "commander": "^2.20.0",
     "glob": "^7.1.4",
     "kuler": "2.0.0",
-    "napa": "^3.0.0",
     "prettyjson": "^1.2.1",
+    "tar": "^7.4.3",
     "xregexp": "^4.2.4"
   },
   "devDependencies": {
@@ -20,7 +20,7 @@
     "mocha": "^6.1.4"
   },
   "scripts": {
-    "install": "napa https://github.com/LibreOffice/dictionaries",
+    "postinstall": "bin/postInstall.js",
     "test": "mocha"
   },
   "bin": {
