@@ -94,7 +94,7 @@ describe(pkg.name + '/src/tqi.js', function () {
     })
     
     it('should return an object "result" with some good metrics for an english text with a latin dictionnary', function () {
-      const latinTqi = new Tqi("./lib/dictionnaries/la/la");
+      const latinTqi = new Tqi("./lib/dictionaries/custom/la/la");
       return latinTqi.analyze(enSample).then((result) => {
         expect(result).to.have.property("correct");
         expect(result.correct).to.be.a("number");
@@ -107,7 +107,7 @@ describe(pkg.name + '/src/tqi.js', function () {
     });
 
     it('should return an object "result" with some good metrics for a latin text with a latin dictionnary', function () {
-      const latinTqi = new Tqi("./lib/dictionnaries/la/la");
+      const latinTqi = new Tqi("./lib/dictionaries/custom/la/la");
       
       return latinTqi.analyze(laSample).then((result) => {
         expect(result).to.have.property("correct");
@@ -127,21 +127,21 @@ describe(pkg.name + '/src/tqi.js', function () {
   // TODO ajouter le dictionnaire FR pour le test
   describe('#spawnCmdHunspell', function () {
     it('should return an object "result"', function () {
-      return tqi.spawnCmdHunspell(['-d', __dirname + '/../node_modules/dictionaries/fr_FR/fr', '-G', frSample]).then((result) =>{
+      return tqi.spawnCmdHunspell(['-d', __dirname + '/../lib/dictionaries/libreoffice/fr_FR/fr', '-G', frSample]).then((result) =>{
         expect(result).to.be.an("array");
       })
     })
   });
 
-  describe('#getHunpsellDictionnaries', function () {
-    it('should return an array with the dictionnaries\'s path', function () {
+  describe('#getHunpsellDictionaries', function () {
+    it('should return an array with the dictionaries\'s path', function () {
       const anotherDictionnary = path.join(__dirname,"data/another-dictionnary");
-      const anotherOtherDictionnary = "./lib/dictionnaries/la/la";
-      const listDict = tqi.getHunpsellDictionnaries(['en', 'fr', '/path/to/another/dictionnary',anotherDictionnary,anotherOtherDictionnary]);
-      expect(listDict).to.include(path.normalize(__dirname + '/../node_modules/dictionaries/en/en_US'));
-      expect(listDict).to.include(path.normalize(__dirname + '/../node_modules/dictionaries/en/en_CA'));
-      expect(listDict).to.include(path.normalize(__dirname + '/../node_modules/dictionaries/en/en_GB'));
-      expect(listDict).to.include(path.normalize(__dirname + '/../node_modules/dictionaries/fr_FR/fr'));
+      const anotherOtherDictionnary = "./lib/dictionaries/custom/la/la";
+      const listDict = tqi.getHunpsellDictionaries(['en', 'fr', '/path/to/another/dictionnary',anotherDictionnary,anotherOtherDictionnary]);
+      expect(listDict).to.include(path.normalize(__dirname + '/../lib/dictionaries/libreoffice/en/en_US'));
+      expect(listDict).to.include(path.normalize(__dirname + '/../lib/dictionaries/libreoffice/en/en_CA'));
+      expect(listDict).to.include(path.normalize(__dirname + '/../lib/dictionaries/libreoffice/en/en_GB'));
+      expect(listDict).to.include(path.normalize(__dirname + '/../lib/dictionaries/libreoffice/fr_FR/fr'));
       expect(listDict).to.not.include(path.normalize('/path/to/another/dictionnary'));
       expect(listDict).to.include(path.normalize(anotherDictionnary));
     })

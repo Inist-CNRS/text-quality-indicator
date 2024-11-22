@@ -1,179 +1,182 @@
-[
-  {
-    "code": "bg",
-    "lang": "BULGARIAN",
-    "path": [
-      "bg_BG/bg_BG"
-    ]
-  },{
-    "code": "cs",
-    "lang": "CZECH",
-    "path": [
-      "cs_CZ/cs_CZ"
-    ]
-  },{
-    "code": "da",
-    "lang": "DANISH",
-    "path": [
-      "da_DK/da_DK"
-    ]
-  },{
-    "code": "de",
-    "lang": "GERMAN",
-    "path": [
-      "de/de_AT_frami",
-      "de/de_CH_frami",
-      "de/de_DE_frami"
-    ]
-  },{
-    "code": "en",
-    "lang": "ENGLISH",
-    "path": [
-      "en/en_US",
-      "en/en_CA",
-      "en/en_GB"
-    ]
-  },{
-    "code": "es",
-    "lang": "SPANISH",
-    "path": [
-      "es/es_ANY"
-    ]
-  },{
-    "code": "et",
-    "lang": "ESTONIAN",
-    "path": [
-      "et_EE/et_EE"
-    ]
-  },{
-    "code": "fr",
-    "lang": "FRENCH",
-    "path": [
-      "fr_FR/fr"
-    ]
-  },{
-    "code": "hr",
-    "lang": "CROATIAN",
-    "path": [
-      "hr_HR/hr_HR"
-    ]
-  },{
-    "code": "hu",
-    "lang": "HUNGARIAN",
-    "path": [
-      "hu/hu_HU"
-    ]
-  },{
-    "code": "it",
-    "lang": "ITALIAN",
-    "path": [
-      "it_IT/it_IT"
-    ]
-  },{
-    "code": "iw",
-    "lang": "HEBREW",
-    "path": [
-      "he_IL/he_IL"
-    ]
-  },{
-    "code": "lt",
-    "lang": "LITHUANIAN",
-    "path": [
-      "lt_LT/lt"
-    ]
-  },{
-    "code": "nl",
-    "lang": "DUTCH",
-    "path": [
-      "nl_NL/nl_NL"
-    ]
-  },{
-    "code": "no",
-    "lang": "NORWEGIAN",
-    "path": [
-      "no/nb_NO",
-      "nn_NO"
-    ]
-  },{
-    "code": "nn",
-    "lang": "NORWEGIAN_N",
-    "path": [
-      "no/nn_NO"
-    ]
-  },{
-    "code": "pl",
-    "lang": "POLISH",
-    "path": [
-      "pl_PL/pl_PL"
-    ]
-  },{
-    "code": "pt",
-    "lang": "PORTUGUESE",
-    "path": [
-      "pt_BR/pt_BR",
-      "pt_PT/pt_PT"
-    ]
-  },{
-    "code": "ro",
-    "lang": "ROMANIAN",
-    "path": [
-      "ro/ro_RO"
-    ]
-  },{
-    "code": "ru",
-    "lang": "RUSSIAN",
-    "path": [
-      "ru_RU/ru_RU"
-    ]
-  },{
-    "code": "sr",
-    "lang": "SERBIAN",
-    "path": [
-      "sr/sr"
-    ]
-  },{
-    "code": "sv",
-    "lang": "SWEDISH",
-    "path": [
-      "sv_SE/sv_SE",
-      "sv_SE/sv_FI"
-    ]
-  },{
-    "code": "sk",
-    "lang": "SLOVAK",
-    "path": [
-      "sk_SK/sk_SK"
-    ]
-  },{
-    "code": "bs",
-    "lang": "BOSNIAN",
-    "path": [
-      "bs_BA/bs_BA"
-    ]
-  },{
-    "code": "ca",
-    "lang": "CATALAN",
-    "path": [
-      "ca/dictionnaries/ca",
-      "ca/dictionnaries/ca-valencia"
-    ]
-  },{
-    "code": "gl",
-    "lang": "GALICIAN",
-    "path": [
-      "gl/gl_ES"
-    ]
-  },{
-    "code": "el",
-    "lang": "GREEK",
-    "path": [
-      "el_GR/el_GR"
-    ]
-  },{
-    "code": "la",
-    "lang": "LATIN",
-    "path": [
-      "./lib/dictionnaries/la/la"
-    ]
+{
+  "defaultProvider": "libreoffice",
+  "dictionaries": {
+    "bg": {
+      "lang": "BULGARIAN",
+      "path": [
+        "bg_BG/bg_BG"
+      ]
+    },
+    "cs": {
+      "lang": "CZECH",
+      "path": [
+        "cs_CZ/cs_CZ"
+      ]
+    },
+    "da": {
+      "lang": "DANISH",
+      "path": [
+        "da_DK/da_DK"
+      ]
+    },
+    "de": {
+      "lang": "GERMAN",
+      "path": [
+        "de/de_AT_frami",
+        "de/de_CH_frami",
+        "de/de_DE_frami"
+      ]
+    },
+    "en": {
+      "lang": "ENGLISH",
+      "path": [
+        "en/en_US",
+        "en/en_CA",
+        "en/en_GB"
+      ]
+    },
+    "es": {
+      "lang": "SPANISH",
+      "path": [
+        "es/es_ANY"
+      ]
+    },
+    "et": {
+      "lang": "ESTONIAN",
+      "path": [
+        "et_EE/et_EE"
+      ]
+    },
+    "fr": {
+      "lang": "FRENCH",
+      "path": [
+        "fr_FR/fr"
+      ]
+    },
+    "hr": {
+      "lang": "CROATIAN",
+      "path": [
+        "hr_HR/hr_HR"
+      ]
+    },
+    "hu": {
+      "lang": "HUNGARIAN",
+      "path": [
+        "hu/hu_HU"
+      ]
+    },
+    "it": {
+      "lang": "ITALIAN",
+      "path": [
+        "it_IT/it_IT"
+      ]
+    },
+    "iw": {
+      "lang": "HEBREW",
+      "path": [
+        "he_IL/he_IL"
+      ]
+    },
+    "lt": {
+      "lang": "LITHUANIAN",
+      "path": [
+        "lt_LT/lt"
+      ]
+    },
+    "nl": {
+      "lang": "DUTCH",
+      "path": [
+        "nl_NL/nl_NL"
+      ]
+    },
+    "no": {
+      "lang": "NORWEGIAN",
+      "path": [
+        "no/nb_NO",
+        "nn_NO"
+      ]
+    },
+    "nn": {
+      "lang": "NORWEGIAN_N",
+      "path": [
+        "no/nn_NO"
+      ]
+    },
+    "pl": {
+      "lang": "POLISH",
+      "path": [
+        "pl_PL/pl_PL"
+      ]
+    },
+    "pt": {
+      "lang": "PORTUGUESE",
+      "path": [
+        "pt_BR/pt_BR",
+        "pt_PT/pt_PT"
+      ]
+    },
+    "ro": {
+      "lang": "ROMANIAN",
+      "path": [
+        "ro/ro_RO"
+      ]
+    },
+    "ru": {
+      "lang": "RUSSIAN",
+      "path": [
+        "ru_RU/ru_RU"
+      ]
+    },
+    "sr": {
+      "lang": "SERBIAN",
+      "path": [
+        "sr/sr"
+      ]
+    },
+    "sv": {
+      "lang": "SWEDISH",
+      "path": [
+        "sv_SE/sv_SE",
+        "sv_SE/sv_FI"
+      ]
+    },
+    "sk": {
+      "lang": "SLOVAK",
+      "path": [
+        "sk_SK/sk_SK"
+      ]
+    },
+    "bs": {
+      "lang": "BOSNIAN",
+      "path": [
+        "bs_BA/bs_BA"
+      ]
+    },
+    "ca": {
+      "lang": "CATALAN",
+      "path": [
+        "ca/ca",
+        "ca/ca-valencia"
+      ]
+    },
+    "gl": {
+      "lang": "GALICIAN",
+      "path": [
+        "gl/gl_ES"
+      ]
+    },
+    "el": {
+      "lang": "GREEK",
+      "path": [
+        "el_GR/el_GR"
+      ]
+    },
+    "la": {
+      "lang": "LATIN",
+      "provider": "custom",
+      "path": [
+        "la/la"
+      ]
+    }
   }
-]
+}
