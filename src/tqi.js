@@ -13,7 +13,7 @@ class Tqi {
     this.dict = [dict];
     if (Array.isArray(dict)) this.dict = dict;
     if (dict === undefined) this.dict = ['en'];
-    this.dict = this.getHunpsellDictionnaries(this.dict);
+    this.dict = this.getHunpsellDictionaries(this.dict);
     if (!this.dict || this.dict===[]) this.dict = ['en'];
   }
 
@@ -98,17 +98,15 @@ class Tqi {
     })
   }
 
-  getHunpsellDictionnaries(codesLang) {
+  getHunpsellDictionaries(codesLang) {
     return codesLang.map((codeLang) => {
-      const dict = mappingLang.filter((dictLang) => dictLang.code === codeLang);
-      if (dict.length) {
-        return dict.map((item) => {
-          return item.path
-        }).reduce((previous, current) => {
-          // Flatten an array of arrays
-          return previous.concat(current)
-        }, []).map((pathDict) => {
-          let goodDictionnaryPath = path.normalize(__dirname + '/../node_modules/dictionaries/' + pathDict);
+      //const dict = mappingLang.filter((dictLang) => dictLang.code === codeLang);
+      const defaultProvider = mappingLang.defaultProvider;
+      const dict = mappingLang.dictionaries[codeLang];
+      if (dict) {
+        return dict.path.map((pathDict) => {
+          const dictProvidfer = dict.provider ? dict.provider : defaultProvider;
+          let goodDictionnaryPath = path.normalize(__dirname + '/../lib/dictionaries/' + dictProvidfer + '/' + pathDict);
           if (pathDict.indexOf('./')===0) goodDictionnaryPath = path.normalize(path.join(__dirname,'..',pathDict));
           return goodDictionnaryPath;
         });

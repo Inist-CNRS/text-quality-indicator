@@ -8,12 +8,14 @@ Return a indicator (in %) of any text, using dictionnary.
 TQI is a node.js written module which get any text data and return you a number regarding the quality of it.
 
 ## How does it work ?
-TQI compares your text to a list of words comming from large affix dictionnaries in some languages.
+TQI compares your text to a list of words comming from large affix dictionaries in some languages.
 
 ## Which languages do TQI support ?
 TQI supports all languages present in the list of dictionaries for Hunspell. 
 
-You could use all languages which are in nodes_modules/dictionnaries or a personnel dictionnary.
+You could use all languages which are in ./lib/dictionaries. It contains :
+- a custom dictionnary (`custom` subdir)
+- a copy of all the libreoffice dictionnaires (`libreoffice` subdir, downloaded at post-install)
 
 ## How to use it ?
 
