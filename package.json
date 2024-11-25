@@ -17,7 +17,7 @@
   },
   "devDependencies": {
     "chai": "^4.2.0",
-    "mocha": "^6.1.4"
+    "mocha": "^10.8.2"
   },
   "scripts": {
     "postinstall": "bin/postInstall.js",
@@ -35,5 +35,8 @@
   "bugs": {
     "url": "https://github.com/Inist-CNRS/text-quality-indicator/issues"
   },
-  "homepage": "https://github.com/Inist-CNRS/text-quality-indicator#readme"
+  "homepage": "https://github.com/Inist-CNRS/text-quality-indicator#readme",
+  "engines": {
+    "node": ">=14.0.0"
+  }
 }
