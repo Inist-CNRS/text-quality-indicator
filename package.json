@@ -1,6 +1,6 @@
 {
   "name": "text-quality-indicator",
-  "version": "2.6.1",
+  "version": "2.6.2",
   "description": "Return a indicator (in %) of any text, using dictionnary.",
   "main": "src/tqi.js",
   "directories": {
